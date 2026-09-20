@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="description"
+        content="Portal personal de accesos rápidos a herramientas clínicas y de trabajo."
+    >
+
+    <meta name="color-scheme" content="dark light">
+
+    <title>Mi Portal Diario</title>
+
+    <style>
+        /* =========================================================
+           VARIABLES
+           ========================================================= */
+
+        :root {
+            --bg: #09101c;
+            --bg-secondary: #0e1727;
+
+            --surface: rgba(20, 31, 51, 0.92);
+            --surface-hover: #1a2942;
+            --surface-soft: #101b2e;
+
+            --accent: #2dd4bf;
+            --accent-hover: #5eead4;
+            --accent-soft: rgba(45, 212, 191, 0.12);
+
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+
+            --border: rgba(148, 163, 184, 0.15);
+            --border-strong: rgba(148, 163, 184, 0.24);
+
+            --shadow:
+                0 8px 30px rgba(0, 0, 0, 0.18);
+
+            --shadow-hover:
+                0 10px 24px rgba(0, 0, 0, 0.25);
+
+            --radius-small: 9px;
+            --radius: 13px;
+            --radius-large: 18px;
+
+            --font:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =========================================================
+           MODO CLARO
+           ========================================================= */
+
+        html[data-theme="light"] {
+            --bg: #f1f5f9;
+            --bg-secondary: #e8eef5;
+
+            --surface: rgba(255, 255, 255, 0.95);
+            --surface-hover: #f8fafc;
+            --surface-soft: #f1f5f9;
+
+            --accent: #0f9f91;
+            --accent-hover: #0d8076;
+            --accent-soft: rgba(15, 159, 145, 0.1);
+
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+
+            --border: rgba(15, 23, 42, 0.09);
+            --border-strong: rgba(15, 23, 42, 0.15);
+
+            --shadow:
+                0 8px 25px rgba(15, 23, 42, 0.06);
+
+            --shadow-hover:
+                0 10px 24px rgba(15, 23, 42, 0.1);
+        }
+
+
+        /* =========================================================
+           RESET
+           ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: var(--font);
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(45, 212, 191, 0.06),
+                    transparent 28rem
+                ),
+                var(--bg);
+
+            -webkit-font-smoothing: antialiased;
+            transition:
+                background-color 0.25s ease,
+                color 0.25s ease;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            color: inherit;
+        }
+
+
+        /* =========================================================
+           ESTRUCTURA GENERAL
+           ========================================================= */
+
+        .page {
+            width: 100%;
+            max-width: 1380px;
+
+            margin: 0 auto;
+            padding:
+                max(18px, env(safe-area-inset-top))
+                max(22px, env(safe-area-inset-right))
+                max(24px, env(safe-area-inset-bottom))
+                max(22px, env(safe-area-inset-left));
+        }
+
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+
+            flex: 0 0 auto;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(45, 212, 191, 0.20),
+                    rgba(45, 212, 191, 0.06)
+                );
+
+            border: 1px solid rgba(45, 212, 191, 0.22);
+
+            color: var(--accent);
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        .brand-text {
+            min-width: 0;
+        }
+
+        .eyebrow {
+            margin-bottom: 2px;
+
+            color: var(--accent);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+
+            font-size: clamp(20px, 2vw, 25px);
+            line-height: 1.2;
+
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+
+        /* =========================================================
+           FECHA Y HORA
+           ========================================================= */
+
+        .datetime {
+            padding-right: 4px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .date {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .time {
+            margin-top: 2px;
+
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+
+        /* =========================================================
+           BOTONES SUPERIORES
+           ========================================================= */
+
+        .icon-button {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            padding: 0;
+
+            border: 1px solid var(--border);
+            border-radius: 11px;
+
+            background: var(--surface);
+
+            color: var(--text-secondary);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.16s ease,
+                border-color 0.16s ease,
+                background-color 0.16s ease,
+                color 0.16s ease;
+        }
+
+        .icon-button:hover {
+            transform: translateY(-1px);
+
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+
+            color: var(--text);
+        }
+
+        .icon-button:active {
+            transform: scale(0.97);
+        }
+
+
+        /* =========================================================
+           BARRA DE CONTROLES
+           ========================================================= */
+
+        .toolbar {
+            display: grid;
+            grid-template-columns: minmax(260px, 1fr) auto;
+
+            gap: 10px;
+
+            margin-bottom: 21px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            min-width: 0;
+        }
+
+        .search-icon {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--text-secondary);
+            pointer-events: none;
+
+            font-size: 14px;
+        }
+
+        .search {
+            width: 100%;
+            height: 42px;
+
+            padding: 0 40px 0 39px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            color: var(--text);
+
+            outline: none;
+
+            box-shadow: var(--shadow);
+
+            transition:
+                border-color 0.18s ease,
+                box-shadow 0.18s ease,
+                background-color 0.18s ease;
+        }
+
+        .search::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search:hover {
+            border-color: var(--border-strong);
+        }
+
+        .search:focus {
+            border-color: var(--accent);
+
+            box-shadow:
+                0 0 0 3px var(--accent-soft);
+        }
+
+        .clear-search {
+            position: absolute;
+
+            right: 8px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 28px;
+            height: 28px;
+
+            display: none;
+            place-items: center;
+
+            padding: 0;
+
+            border: 0;
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: var(--text-secondary);
+
+            cursor: pointer;
+        }
+
+        .clear-search.visible {
+            display: grid;
+        }
+
+        .clear-search:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+        }
+
+
+        /* =========================================================
+           BOTONES EXPANDIR / CONTRAER
+           ========================================================= */
+
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-button {
+            min-height: 42px;
+
+            padding: 0 14px;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: var(--surface);
+
+            color: var(--text-secondary);
+
+            font-size: 11px;
+            font-weight: 650;
+
+            white-space: nowrap;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.16s ease,
+                border-color 0.16s ease,
+                color 0.16s ease,
+                transform 0.16s ease;
+        }
+
+        .action-button:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+
+            color: var(--text);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           RESUMEN
+           ========================================================= */
+
+        .portal-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin: -5px 2px 13px;
+
+            font-size: 10.5px;
+            color: var(--text-secondary);
+        }
+
+        .result-count {
+            color: var(--accent);
+            font-weight: 650;
+        }
+
+
+        /* =========================================================
+           CATEGORÍAS
+           ========================================================= */
+
+        .category-section {
+            margin-bottom: 18px;
+        }
+
+        .category-header {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 0 2px 8px;
+
+            border: 0;
+            border-bottom: 1px solid var(--border);
+
+            background: transparent;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition: border-color 0.16s ease;
+        }
+
+        .category-header:hover {
+            border-bottom-color: var(--border-strong);
+        }
+
+        .category-heading {
+            min-width: 0;
+        }
+
+        .category-title-row {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .category-title {
+            margin: 0;
+
+            font-size: 13.5px;
+            line-height: 1.35;
+
+            font-weight: 700;
+
+            color: var(--text);
+        }
+
+        .category-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 20px;
+            height: 19px;
+
+            padding: 0 6px;
+
+            border-radius: 999px;
+
+            background: var(--accent-soft);
+
+            color: var(--accent);
+
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .category-subtitle {
+            margin-top: 2px;
+
+            color: var(--text-tertiary);
+
+            font-size: 9.5px;
+        }
+
+        .chevron {
+            width: 28px;
+            height: 28px;
+
+            display: grid;
+            place-items: center;
+
+            flex: 0 0 auto;
+
+            border-radius: 8px;
+
+            color: var(--text-secondary);
+
+            font-size: 11px;
+
+            transition:
+                transform 0.22s ease,
+                background-color 0.16s ease;
+        }
+
+        .category-header:hover .chevron {
+            background: var(--surface);
+        }
+
+        .category-header[aria-expanded="false"] .chevron {
+            transform: rotate(-90deg);
+        }
+
+
+        /* =========================================================
+           GRID
+           ========================================================= */
+
+        .cards-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(175px, 1fr));
+
+            gap: 9px;
+
+            margin-top: 9px;
+
+            animation: appear 0.18s ease;
+        }
+
+        .cards-grid[hidden] {
+            display: none !important;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(-3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           TARJETAS
+           ========================================================= */
+
+        .card {
+            min-width: 0;
+            min-height: 56px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 9px 10px;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: var(--surface);
+
+            color: var(--text);
+
+            text-decoration: none;
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+
+            transition:
+                transform 0.16s ease,
+                background-color 0.16s ease,
+                border-color 0.16s ease,
+                box-shadow 0.16s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card:active {
+            transform: translateY(0);
+        }
+
+        .card:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .card-icon {
+            width: 35px;
+            height: 35px;
+
+            flex: 0 0 35px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 9px;
+
+            background: var(--accent-soft);
+
+            color: var(--accent);
+
+            font-size: 12px;
+            font-weight: 750;
+
+            letter-spacing: -0.03em;
+        }
+
+        .card-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .card-title {
+            overflow: hidden;
+
+            color: var(--text);
+
+            font-size: 11.5px;
+            font-weight: 650;
+
+            line-height: 1.3;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .card-desc {
+            margin-top: 2px;
+
+            overflow: hidden;
+
+            color: var(--text-tertiary);
+
+            font-size: 8.8px;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .card-arrow {
+            flex: 0 0 auto;
+
+            margin-left: 2px;
+
+            color: var(--text-tertiary);
+
+            font-size: 10px;
+
+            transition:
+                transform 0.16s ease,
+                color 0.16s ease;
+        }
+
+        .card:hover .card-arrow {
+            transform: translate(1px, -1px);
+            color: var(--accent);
+        }
+
+
+        /* =========================================================
+           SIN RESULTADOS
+           ========================================================= */
+
+        .empty-state {
+            display: grid;
+            place-items: center;
+
+            min-height: 220px;
+
+            padding: 35px;
+
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-large);
+
+            text-align: center;
+
+            background: var(--surface);
+        }
+
+        .empty-icon {
+            margin-bottom: 10px;
+            font-size: 27px;
+        }
+
+        .empty-title {
+            margin-bottom: 4px;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .empty-description {
+            max-width: 350px;
+
+            color: var(--text-secondary);
+
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            padding-top: 9px;
+
+            text-align: center;
+
+            font-size: 9px;
+
+            color: var(--text-tertiary);
+        }
+
+
+        /* =========================================================
+           ACCESIBILIDAD
+           ========================================================= */
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+
+            width: 1px;
+            height: 1px;
+
+            padding: 0;
+            margin: -1px;
+
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+
+            white-space: nowrap;
+            border: 0;
+        }
+
+
+        /* =========================================================
+           NOTEBOOK 13"
+           ========================================================= */
+
+        @media (max-width: 1100px) {
+            .page {
+                padding: 17px;
+            }
+
+            .cards-grid {
+                grid-template-columns:
+                    repeat(auto-fit, minmax(165px, 1fr));
+            }
+
+            .category-section {
+                margin-bottom: 15px;
+            }
+        }
+
+
+        /* =========================================================
+           TABLET
+           ========================================================= */
+
+        @media (max-width: 720px) {
+            .page {
+                padding: 15px;
+            }
+
+            .toolbar {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .action-button {
+                width: 100%;
+            }
+
+            .cards-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+        }
+
+
+        /* =========================================================
+           CELULAR
+           ========================================================= */
+
+        @media (max-width: 520px) {
+            .page {
+                padding: 13px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                margin-bottom: 17px;
+            }
+
+            .brand {
+                gap: 9px;
+            }
+
+            .brand-icon {
+                width: 39px;
+                height: 39px;
+
+                border-radius: 11px;
+
+                font-size: 20px;
+            }
+
+            .eyebrow {
+                font-size: 8px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .datetime {
+                display: none;
+            }
+
+            .icon-button {
+                width: 36px;
+                height: 36px;
+            }
+
+            .toolbar {
+                margin-bottom: 17px;
+            }
+
+            .search {
+                height: 43px;
+            }
+
+            .portal-meta {
+                font-size: 9.5px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 7px;
+            }
+
+            .card {
+                min-height: 56px;
+            }
+
+            .category-section {
+                margin-bottom: 16px;
+            }
+
+            .category-title {
+                font-size: 13px;
+            }
+        }
+
+
+        /* =========================================================
+           PANTALLAS MUY PEQUEÑAS
+           ========================================================= */
+
+        @media (max-width: 340px) {
+            .toolbar-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* =========================================================
+           REDUCIR ANIMACIONES
+           ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <main class="page">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <header class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-icon" aria-hidden="true">
+                    +
+                </div>
+
+                <div class="brand-text">
+
+                    <div class="eyebrow">
+                        Accesos rápidos
+                    </div>
+
+                    <h1>
+                        Mi Portal Diario
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div
+                    class="datetime"
+                    aria-label="Fecha y hora actual"
+                >
+                    <div
+                        class="date"
+                        id="dateDisplay"
+                    >
+                        Cargando...
+                    </div>
+
+                    <div
+                        class="time"
+                        id="timeDisplay"
+                    >
+                        --:--
+                    </div>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="icon-button"
+                    id="themeButton"
+                    aria-label="Cambiar tema"
+                    title="Cambiar tema"
+                >
+                    <span
+                        id="themeIcon"
+                        aria-hidden="true"
+                    >
+                        ☀
+                    </span>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             BUSCADOR
+             ===================================================== -->
+
+        <section
+            class="toolbar"
+            aria-label="Controles del portal"
+        >
+
+            <div class="search-wrapper">
+
+                <span
+                    class="search-icon"
+                    aria-hidden="true"
+                >
+                    ⌕
+                </span>
+
+                <label
+                    for="searchInput"
+                    class="sr-only"
+                >
+                    Buscar acceso
+                </label>
+
+                <input
+                    id="searchInput"
+                    class="search"
+                    type="search"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Buscar acceso, herramienta o categoría..."
+                >
+
+                <button
+                    type="button"
+                    class="clear-search"
+                    id="clearSearch"
+                    aria-label="Limpiar búsqueda"
+                    title="Limpiar búsqueda"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="toolbar-actions">
+
+                <button
+                    type="button"
+                    class="action-button"
+                    id="expandAll"
+                >
+                    Expandir todo
+                </button>
+
+                <button
+                    type="button"
+                    class="action-button"
+                    id="collapseAll"
+                >
+                    Contraer todo
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             INFORMACIÓN DE RESULTADOS
+             ===================================================== -->
+
+        <div class="portal-meta">
+
+            <span>
+                Accesos de trabajo y herramientas clínicas
+            </span>
+
+            <span
+                class="result-count"
+                id="resultCount"
+                aria-live="polite"
+            >
+            </span>
+
+        </div>
+
+
+        <!-- =====================================================
+             CATEGORÍAS
+             ===================================================== -->
+
+        <div id="categoriesContainer"></div>
+
+
+        <footer>
+            Portal de accesos rápidos
+        </footer>
+
+    </main>
+
+
+
+    <script>
+        "use strict";
+
+
+        /* =========================================================
+           DATOS
+           ========================================================= */
+
+        const accesos = [
+
+            /* Herramientas generales */
+
+            {
+                nombre: "Google Drive",
+                link: "https://drive.google.com/drive/u/0/home",
+                icono: "📁",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Gmail",
+                link: "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox",
+                icono: "✉️",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Mail Corporativo",
+                link: "https://outlook.cloud.microsoft/mail/?realm=cmpuentealto.cl&login_hint=patricio.cerda@cmpuentealto.cl",
+                icono: "📬",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Open Evidence",
+                link: "https://www.openevidence.com/",
+                icono: "OE",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Gemini",
+                link: "https://gemini.google.com/app",
+                icono: "G",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "ChatGPT",
+                link: "https://chatgpt.com/",
+                icono: "AI",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Claude",
+                link: "https://claude.ai/new",
+                icono: "🚀",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Escalas",
+                link: "https://patriciocerdag-ctrl.github.io/mi-sitio-web/",
+                icono: "📑",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Calendario",
+                link: "https://calendar.google.com/calendar/u/0/r",
+                icono: "🗓️",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Calculadora",
+                link: "https://patriciocerdag-ctrl.github.io/calculadora/",
+                icono: "＝",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Notas",
+                link: "https://keep.google.com/u/0/",
+                icono: "💭",
+                categoria: "Herramientas generales"
+            },
+
+            {
+                nombre: "Temas de psiquiatría",
+                link: "https://drive.google.com/drive/u/0/folders/1853rukI4SMmydk-Cg77Kz77SlzJnGlUd",
+                icono: "🩺",
+                categoria: "Herramientas generales"
+            },
+
+
+            /* Enlace HBLT */
+
+            {
+                nombre: "Forms",
+                link: "https://docs.google.com/forms/d/e/1FAIpQLSfomBx2HRljbWza6oRnQbLQUhtgF56_UJXJlFYBSIwDSuMN3Q/viewform",
+                icono: "＋",
+                categoria: "Enlace HBLT"
+            },
+
+            {
+                nombre: "Tabla de pacientes",
+                link: "https://docs.google.com/spreadsheets/d/1YN2-pa3T2yB3IzuRPKTJbR4Z04oK3AG6pQObl3Wiw-g/edit?gid=0#gid=0",
+                icono: "📋",
+                categoria: "Enlace HBLT"
+            },
+
+            {
+                nombre: "Base de datos",
+                link: "https://docs.google.com/spreadsheets/d/1r6e5ONlUgOOWc3Zr6sDL3yS_I3qRm9_P5wIidaEOdOE/edit?gid=738477232#gid=738477232",
+                icono: "📊",
+                categoria: "Enlace HBLT"
+            },
+
+            {
+                nombre: "REM 2026",
+                link: "https://drive.google.com/drive/folders/1QqZ0ofZuik5otSmxH_KZUo5CgvyA8Wwu",
+                icono: "📜",
+                categoria: "Enlace HBLT"
+            },
+
+            {
+                nombre: "Documento Rotación residentes",
+                link: "https://docs.google.com/document/d/1JRKPYlIlgw8_tALdkRFm2YWXE6TX8pLh/edit",
+                icono: "🗄️",
+                categoria: "Enlace HBLT"
+            },
+
+            {
+                nombre: "Presentaciones Residentes",
+                link: "https://drive.google.com/drive/folders/1mn-FFcPTzDQM6YDibGQbRrXks2q0Mptk",
+                icono: "🗃",
+                categoria: "Enlace HBLT"
+            },
+
+
+            /* COSAM-CEIF */
+
+            {
+                nombre: "Rx - Controlado",
+                link: "https://docs.google.com/document/d/1nRKoktTFIDMmOtkj_OADxF5eQlgLwKfm1pDz9NpV3t4/edit?tab=t.0",
+                icono: "💊",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "Rayen APS",
+                link: "https://clinico.rayenaps.cl/#/actualizar-app",
+                icono: "R",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "Pacientes CEIF",
+                link: "https://drive.google.com/drive/folders/1DDZ4hBKfaiLzfcceaqOrzVUwdDuERBrd",
+                icono: "👥",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "Ingreso - Formato",
+                link: "https://docs.google.com/document/d/1Br_Vi4j6kiTLUf7fJsLGa2PQfGbJOFP1ZmM48fdYkYk/edit?tab=t.0",
+                icono: "📑",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "PCI",
+                link: "https://cmesapa-my.sharepoint.com/shared?listurl=https%3A%2F%2Fcmesapa%2Dmy%2Esharepoint%2Ecom%2Fpersonal%2Fmarco%5Fdonoso%5Fcmpuentealto%5Fcl%2FDocuments&csf=1&web=1&e=qzdqSf&id=%2Fpersonal%2Fmarco%5Fdonoso%5Fcmpuentealto%5Fcl%2FDocuments%2FPCI%20%28PLANES%20DE%20CUIDADO%20INTEGRAL%29&FolderCTID=0x0120001C19A6E1B19A7945BD39D8E611AF6657",
+                icono: "📘",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "Formatos - Gral.",
+                link: "https://drive.google.com/drive/folders/1Me5bz1-nZPiQ_iw2JGnQzrMK5ihazujA",
+                icono: "📑",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "Apelación LM",
+                link: "https://docs.google.com/document/d/1bnoSNbQ1ObDtoXIqpUaG3_dm6t1VA2pX/edit",
+                icono: "LM",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "Interconsulta",
+                link: "https://docs.google.com/spreadsheets/d/12pQs4t-XpOm-Klr-Jk1z28Y8IaLCW3ToLJqKxg9Dr-o/edit?gid=0#gid=0",
+                icono: "IC",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "IPD",
+                link: "https://docs.google.com/spreadsheets/d/1neVn74TlvdzN77jXS6uCIJWTvL6gzltwVEscelKqWmE/edit?gid=0#gid=0",
+                icono: "IPD",
+                categoria: "COSAM-CEIF"
+            },
+
+            {
+                nombre: "BioNet",
+                link: "https://docs.google.com/spreadsheets/d/1DjsVWzrroGIN0yWRCikVRKv6JK2daPWz/edit?gid=1511189274#gid=1511189274",
+                icono: "💉",
+                categoria: "COSAM-CEIF"
+            },
+
+
+            /* Vida Nova */
+
+            {
+                nombre: "Pacientes",
+                link: "https://drive.google.com/drive/u/0/folders/1Ivw9igDxtn8HqFxjZkecdWKnQBn5mC90",
+                icono: "👥",
+                categoria: "Vida Nova"
+            },
+
+            {
+                nombre: "Receta MINSAL",
+                link: "https://prescripcion-receta.minsal.cl/auth/login",
+                icono: "Rx",
+                categoria: "Vida Nova"
+            },
+
+            {
+                nombre: "Imed",
+                link: "https://imed.cl/licencia-medica",
+                icono: "LM",
+                categoria: "Vida Nova"
+            },
+
+            {
+                nombre: "Constancia GES",
+                link: "https://docs.google.com/spreadsheets/d/1u_2HW2qqQj8MOnD0ulKp0NmJRRKHRVsdtz_JihUZC-s/edit?gid=0#gid=0",
+                icono: "GES",
+                categoria: "Vida Nova"
+            },
+
+            {
+                nombre: "Interconsulta",
+                link: "https://docs.google.com/spreadsheets/d/12pQs4t-XpOm-Klr-Jk1z28Y8IaLCW3ToLJqKxg9Dr-o/edit?gid=0#gid=0",
+                icono: "IC",
+                categoria: "Vida Nova"
+            }
+
+        ];
+
+
+        /* =========================================================
+           ORDEN DE CATEGORÍAS
+           ========================================================= */
+
+        const ordenCategorias = [
+            "Herramientas generales",
+            "Enlace HBLT",
+            "COSAM-CEIF",
+            "Vida Nova"
+        ];
+
+
+        /* =========================================================
+           ELEMENTOS DOM
+           ========================================================= */
+
+        const categoriesContainer =
+            document.getElementById("categoriesContainer");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const clearSearch =
+            document.getElementById("clearSearch");
+
+        const resultCount =
+            document.getElementById("resultCount");
+
+        const expandAllButton =
+            document.getElementById("expandAll");
+
+        const collapseAllButton =
+            document.getElementById("collapseAll");
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+        const themeIcon =
+            document.getElementById("themeIcon");
+
+
+        /* =========================================================
+           UTILIDADES
+           ========================================================= */
+
+        function normalizarTexto(texto) {
+            return texto
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .trim();
+        }
+
+
+        function slugify(texto) {
+            return normalizarTexto(texto)
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, "");
+        }
+
+
+        /* =========================================================
+           ESTADO DE CATEGORÍAS
+           ========================================================= */
+
+        function obtenerEstadoGuardado() {
+
+            try {
+
+                const estado =
+                    JSON.parse(
+                        localStorage.getItem("portal-category-state")
+                    );
+
+                return estado || {};
+
+            } catch {
+
+                return {};
+
+            }
+
+        }
+
+
+        let estadoCategorias =
+            obtenerEstadoGuardado();
+
+
+        function estadoInicialCategoria(categoria) {
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    estadoCategorias,
+                    categoria
+                )
+            ) {
+                return estadoCategorias[categoria];
+            }
+
+            return categoria === "Herramientas generales";
+        }
+
+
+        function guardarEstadoCategorias() {
+
+            try {
+
+                localStorage.setItem(
+                    "portal-category-state",
+                    JSON.stringify(estadoCategorias)
+                );
+
+            } catch {
+                /* localStorage puede estar deshabilitado */
+            }
+
+        }
+
+
+        /* =========================================================
+           RELOJ
+           ========================================================= */
+
+        function actualizarFechaHora() {
+
+            const ahora = new Date();
+
+            const fecha = ahora.toLocaleDateString(
+                "es-CL",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+            const hora = ahora.toLocaleTimeString(
+                "es-CL",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false
+                }
+            );
+
+            document.getElementById("dateDisplay").textContent =
+                fecha.charAt(0).toUpperCase() + fecha.slice(1);
+
+            document.getElementById("timeDisplay").textContent =
+                hora;
+
+        }
+
+
+        actualizarFechaHora();
+
+        setInterval(
+            actualizarFechaHora,
+            30000
+        );
+
+
+        /* =========================================================
+           TEMA
+           ========================================================= */
+
+        function obtenerTemaPreferido() {
+
+            const guardado =
+                localStorage.getItem("portal-theme");
+
+            if (
+                guardado === "dark" ||
+                guardado === "light"
+            ) {
+                return guardado;
+            }
+
+            return window.matchMedia(
+                "(prefers-color-scheme: light)"
+            ).matches
+                ? "light"
+                : "dark";
+        }
+
+
+        function aplicarTema(tema) {
+
+            document.documentElement.dataset.theme =
+                tema;
+
+            themeIcon.textContent =
+                tema === "dark"
+                    ? "☀"
+                    : "☾";
+
+            themeButton.title =
+                tema === "dark"
+                    ? "Usar modo claro"
+                    : "Usar modo oscuro";
+
+            themeButton.setAttribute(
+                "aria-label",
+                themeButton.title
+            );
+
+        }
+
+
+        aplicarTema(
+            obtenerTemaPreferido()
+        );
+
+
+        themeButton.addEventListener(
+            "click",
+            () => {
+
+                const actual =
+                    document.documentElement.dataset.theme;
+
+                const nuevo =
+                    actual === "dark"
+                        ? "light"
+                        : "dark";
+
+                aplicarTema(nuevo);
+
+                try {
+                    localStorage.setItem(
+                        "portal-theme",
+                        nuevo
+                    );
+                } catch {
+                    /* Sin almacenamiento */
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CREAR TARJETA
+           ========================================================= */
+
+        function crearTarjeta(acceso) {
+
+            const card =
+                document.createElement("a");
+
+            card.className = "card";
+
+            card.href =
+                acceso.link;
+
+            card.target =
+                "_blank";
+
+            card.rel =
+                "noopener noreferrer";
+
+            card.title =
+                `Abrir ${acceso.nombre}`;
+
+            card.setAttribute(
+                "aria-label",
+                `${acceso.nombre}. Abrir en nueva pestaña`
+            );
+
+
+            const icon =
+                document.createElement("div");
+
+            icon.className =
+                "card-icon";
+
+            icon.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            icon.textContent =
+                acceso.icono;
+
+
+            const info =
+                document.createElement("div");
+
+            info.className =
+                "card-info";
+
+
+            const title =
+                document.createElement("div");
+
+            title.className =
+                "card-title";
+
+            title.textContent =
+                acceso.nombre;
+
+
+            const description =
+                document.createElement("div");
+
+            description.className =
+                "card-desc";
+
+            description.textContent =
+                acceso.categoria;
+
+
+            const arrow =
+                document.createElement("div");
+
+            arrow.className =
+                "card-arrow";
+
+            arrow.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            arrow.textContent =
+                "↗";
+
+
+            info.append(
+                title,
+                description
+            );
+
+            card.append(
+                icon,
+                info,
+                arrow
+            );
+
+            return card;
+
+        }
+
+
+        /* =========================================================
+           CREAR CATEGORÍA
+           ========================================================= */
+
+        function crearCategoria(
+            categoria,
+            items,
+            busquedaActiva
+        ) {
+
+            const section =
+                document.createElement("section");
+
+            section.className =
+                "category-section";
+
+
+            const id =
+                `category-${slugify(categoria)}`;
+
+
+            const header =
+                document.createElement("button");
+
+            header.type =
+                "button";
+
+            header.className =
+                "category-header";
+
+
+            /*
+             * Cuando existe una búsqueda,
+             * las categorías con resultados se muestran abiertas.
+             */
+
+            const abierta =
+                busquedaActiva
+                    ? true
+                    : estadoInicialCategoria(categoria);
+
+
+            header.setAttribute(
+                "aria-expanded",
+                String(abierta)
+            );
+
+            header.setAttribute(
+                "aria-controls",
+                id
+            );
+
+
+            const heading =
+                document.createElement("div");
+
+            heading.className =
+                "category-heading";
+
+
+            const titleRow =
+                document.createElement("div");
+
+            titleRow.className =
+                "category-title-row";
+
+
+            const title =
+                document.createElement("h2");
+
+            title.className =
+                "category-title";
+
+            title.textContent =
+                categoria;
+
+
+            const count =
+                document.createElement("span");
+
+            count.className =
+                "category-count";
+
+            count.textContent =
+                items.length;
+
+
+            const subtitle =
+                document.createElement("div");
+
+            subtitle.className =
+                "category-subtitle";
+
+            subtitle.textContent =
+                items.length === 1
+                    ? "1 acceso disponible"
+                    : `${items.length} accesos disponibles`;
+
+
+            const chevron =
+                document.createElement("span");
+
+            chevron.className =
+                "chevron";
+
+            chevron.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            chevron.textContent =
+                "▼";
+
+
+            titleRow.append(
+                title,
+                count
+            );
+
+            heading.append(
+                titleRow,
+                subtitle
+            );
+
+            header.append(
+                heading,
+                chevron
+            );
+
+
+            const grid =
+                document.createElement("div");
+
+            grid.className =
+                "cards-grid";
+
+            grid.id =
+                id;
+
+            grid.hidden =
+                !abierta;
+
+
+            items.forEach(
+                acceso => {
+                    grid.appendChild(
+                        crearTarjeta(acceso)
+                    );
+                }
+            );
+
+
+            header.addEventListener(
+                "click",
+                () => {
+
+                    const actualmenteAbierta =
+                        header.getAttribute(
+                            "aria-expanded"
+                        ) === "true";
+
+                    const nuevaCondicion =
+                        !actualmenteAbierta;
+
+                    header.setAttribute(
+                        "aria-expanded",
+                        String(nuevaCondicion)
+                    );
+
+                    grid.hidden =
+                        !nuevaCondicion;
+
+
+                    /*
+                     * Guardamos el estado solamente
+                     * cuando no existe una búsqueda activa.
+                     */
+
+                    if (!searchInput.value.trim()) {
+
+                        estadoCategorias[categoria] =
+                            nuevaCondicion;
+
+                        guardarEstadoCategorias();
+
+                    }
+
+                }
+            );
+
+
+            section.append(
+                header,
+                grid
+            );
+
+            return section;
+
+        }
+
+
+        /* =========================================================
+           RENDERIZADO
+           ========================================================= */
+
+        function renderizarPortal() {
+
+            const textoBusqueda =
+                normalizarTexto(
+                    searchInput.value
+                );
+
+
+            const filtrados =
+                textoBusqueda
+                    ? accesos.filter(
+                        acceso => {
+
+                            const textoAcceso =
+                                normalizarTexto(
+                                    `${acceso.nombre} ${acceso.categoria}`
+                                );
+
+                            return textoAcceso.includes(
+                                textoBusqueda
+                            );
+
+                        }
+                    )
+                    : accesos;
+
+
+            categoriesContainer.replaceChildren();
+
+
+            clearSearch.classList.toggle(
+                "visible",
+                Boolean(textoBusqueda)
+            );
+
+
+            if (filtrados.length === 0) {
+
+                resultCount.textContent =
+                    "0 resultados";
+
+
+                const empty =
+                    document.createElement("div");
+
+                empty.className =
+                    "empty-state";
+
+                empty.innerHTML = `
+                    <div>
+                        <div
+                            class="empty-icon"
+                            aria-hidden="true"
+                        >
+                            ⌕
+                        </div>
+
+                        <div class="empty-title">
+                            No se encontraron accesos
+                        </div>
+
+                        <div class="empty-description">
+                            Intenta buscar por el nombre de una herramienta
+                            o por una categoría, por ejemplo:
+                            Drive, pacientes, COSAM o Vida Nova.
+                        </div>
+                    </div>
+                `;
+
+                categoriesContainer.appendChild(
+                    empty
+                );
+
+                return;
+            }
+
+
+            resultCount.textContent =
+                textoBusqueda
+                    ? (
+                        filtrados.length === 1
+                            ? "1 resultado"
+                            : `${filtrados.length} resultados`
+                    )
+                    : `${accesos.length} accesos`;
+
+
+            ordenCategorias.forEach(
+                categoria => {
+
+                    const items =
+                        filtrados.filter(
+                            acceso =>
+                                acceso.categoria === categoria
+                        );
+
+                    if (!items.length) {
+                        return;
+                    }
+
+                    categoriesContainer.appendChild(
+                        crearCategoria(
+                            categoria,
+                            items,
+                            Boolean(textoBusqueda)
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           BUSCADOR
+           ========================================================= */
+
+        searchInput.addEventListener(
+            "input",
+            renderizarPortal
+        );
+
+
+        clearSearch.addEventListener(
+            "click",
+            () => {
+
+                searchInput.value =
+                    "";
+
+                searchInput.focus();
+
+                renderizarPortal();
+
+            }
+        );
+
+
+        /*
+         * ESC limpia rápidamente la búsqueda.
+         */
+
+        searchInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape" &&
+                    searchInput.value
+                ) {
+
+                    searchInput.value =
+                        "";
+
+                    renderizarPortal();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           EXPANDIR TODO
+           ========================================================= */
+
+        expandAllButton.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".category-section"
+                    )
+                    .forEach(
+                        section => {
+
+                            const header =
+                                section.querySelector(
+                                    ".category-header"
+                                );
+
+                            const grid =
+                                section.querySelector(
+                                    ".cards-grid"
+                                );
+
+                            header.setAttribute(
+                                "aria-expanded",
+                                "true"
+                            );
+
+                            grid.hidden =
+                                false;
+
+                        }
+                    );
+
+
+                if (!searchInput.value.trim()) {
+
+                    ordenCategorias.forEach(
+                        categoria => {
+                            estadoCategorias[categoria] =
+                                true;
+                        }
+                    );
+
+                    guardarEstadoCategorias();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CONTRAER TODO
+           ========================================================= */
+
+        collapseAllButton.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".category-section"
+                    )
+                    .forEach(
+                        section => {
+
+                            const header =
+                                section.querySelector(
+                                    ".category-header"
+                                );
+
+                            const grid =
+                                section.querySelector(
+                                    ".cards-grid"
+                                );
+
+                            header.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                            grid.hidden =
+                                true;
+
+                        }
+                    );
+
+
+                if (!searchInput.value.trim()) {
+
+                    ordenCategorias.forEach(
+                        categoria => {
+                            estadoCategorias[categoria] =
+                                false;
+                        }
+                    );
+
+                    guardarEstadoCategorias();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           ATAJO DE TECLADO
+           ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                /*
+                 * Ctrl + K o Cmd + K
+                 * posiciona el cursor en el buscador.
+                 */
+
+                if (
+                    (event.ctrlKey || event.metaKey) &&
+                    event.key.toLowerCase() === "k"
+                ) {
+
+                    event.preventDefault();
+
+                    searchInput.focus();
+
+                    searchInput.select();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           INICIO
+           ========================================================= */
+
+        renderizarPortal();
+
+    </script>
+
+</body>
+</html>
