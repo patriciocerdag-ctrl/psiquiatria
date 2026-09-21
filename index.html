@@ -59,6 +59,23 @@
                 Helvetica,
                 Arial,
                 sans-serif;
+
+            /* Sutilezas de colores por categoría (Modo Oscuro) */
+            --cat-1-bg: rgba(56, 189, 248, 0.04);
+            --cat-1-border: rgba(56, 189, 248, 0.2);
+
+            --cat-2-bg: rgba(45, 212, 191, 0.04);
+            --cat-2-border: rgba(45, 212, 191, 0.2);
+
+            --cat-3-bg: rgba(129, 140, 248, 0.04);
+            --cat-3-border: rgba(129, 140, 248, 0.2);
+
+            --cat-4-bg: rgba(52, 211, 153, 0.04);
+            --cat-4-border: rgba(52, 211, 153, 0.2);
+
+            /* Destacados */
+            --highlight-border: #2dd4bf;
+            --highlight-bg: rgba(45, 212, 191, 0.08);
         }
 
 
@@ -90,6 +107,23 @@
 
             --shadow-hover:
                 0 10px 24px rgba(15, 23, 42, 0.1);
+
+            /* Sutilezas de colores por categoría (Modo Claro) */
+            --cat-1-bg: rgba(2, 132, 199, 0.03);
+            --cat-1-border: rgba(2, 132, 199, 0.15);
+
+            --cat-2-bg: rgba(13, 148, 136, 0.03);
+            --cat-2-border: rgba(13, 148, 136, 0.15);
+
+            --cat-3-bg: rgba(79, 70, 229, 0.03);
+            --cat-3-border: rgba(79, 70, 229, 0.15);
+
+            --cat-4-bg: rgba(5, 150, 105, 0.03);
+            --cat-4-border: rgba(5, 150, 105, 0.15);
+
+            /* Destacados */
+            --highlight-border: #0f9f91;
+            --highlight-bg: rgba(15, 159, 145, 0.05);
         }
 
 
@@ -478,7 +512,29 @@
            ========================================================= */
 
         .category-section {
-            margin-bottom: 18px;
+            margin-bottom: 24px;
+            padding: 14px 16px;
+            border-radius: var(--radius-large);
+            border: 1px solid transparent;
+            transition: background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        /* Colores sutiles de fondo para diferenciar la navegación */
+        .category-section[data-category="herramientas-generales"] {
+            background: var(--cat-1-bg);
+            border-color: var(--cat-1-border);
+        }
+        .category-section[data-category="enlace-hblt"] {
+            background: var(--cat-2-bg);
+            border-color: var(--cat-2-border);
+        }
+        .category-section[data-category="cosam-ceif"] {
+            background: var(--cat-3-bg);
+            border-color: var(--cat-3-border);
+        }
+        .category-section[data-category="vida-nova"] {
+            background: var(--cat-4-bg);
+            border-color: var(--cat-4-border);
         }
 
         .category-header {
@@ -490,7 +546,7 @@
 
             gap: 15px;
 
-            padding: 0 2px 8px;
+            padding: 0 4px 10px;
 
             border: 0;
             border-bottom: 1px solid var(--border);
@@ -599,7 +655,7 @@
 
             gap: 9px;
 
-            margin-top: 9px;
+            margin-top: 14px;
 
             animation: appear 0.18s ease;
         }
@@ -663,6 +719,23 @@
             box-shadow: var(--shadow-hover);
         }
 
+        /* Tarjetas Destacadas */
+        .card.highlight-btn {
+            border: 1px solid var(--highlight-border);
+            box-shadow: 0 0 0 1px var(--highlight-border), 0 4px 14px rgba(0, 0, 0, 0.08);
+            background: var(--highlight-bg);
+        }
+
+        .card.highlight-btn .card-icon {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .card.highlight-btn .card-title {
+            color: var(--accent);
+            font-weight: 750;
+        }
+
         .card:active {
             transform: translateY(0);
         }
@@ -691,6 +764,7 @@
             font-weight: 750;
 
             letter-spacing: -0.03em;
+            transition: background-color 0.16s ease, color 0.16s ease;
         }
 
         .card-info {
@@ -710,6 +784,7 @@
 
             white-space: nowrap;
             text-overflow: ellipsis;
+            transition: color 0.16s ease;
         }
 
         .card-desc {
@@ -844,7 +919,8 @@
             }
 
             .category-section {
-                margin-bottom: 15px;
+                margin-bottom: 20px;
+                padding: 12px 14px;
             }
         }
 
@@ -945,6 +1021,7 @@
 
             .category-section {
                 margin-bottom: 16px;
+                padding: 10px 12px;
             }
 
             .category-title {
@@ -1671,6 +1748,11 @@
 
             card.className = "card";
 
+            // Destacar los botones específicos
+            if (acceso.nombre === "Gmail" || acceso.nombre === "Rayen APS") {
+                card.classList.add("highlight-btn");
+            }
+
             card.href =
                 acceso.link;
 
@@ -1777,6 +1859,8 @@
 
             section.className =
                 "category-section";
+
+            section.setAttribute("data-category", slugify(categoria));
 
 
             const id =
