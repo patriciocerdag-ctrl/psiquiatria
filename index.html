@@ -413,7 +413,7 @@
             background: var(--surface);
             color: var(--text-2);
             box-shadow: var(--shadow-card);
-            font-size: 10px;
+            font-size: 13px; /* Tamaño de letra aumentado */
             font-weight: 700;
             white-space: nowrap;
             cursor: pointer;
@@ -687,10 +687,6 @@
             box-shadow: var(--shadow-hover);
         }
 
-        .card:hover::after {
-            opacity: 1;
-        }
-
         .card:active {
             transform: translateY(0);
         }
@@ -726,20 +722,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            font-size: 10.5px;
+            font-size: 14px; /* Tamaño de letra aumentado */
             line-height: 1.25;
             font-weight: 720;
             letter-spacing: -0.01em;
-        }
-
-        .card-desc {
-            margin-top: 2px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: var(--text-3);
-            font-size: 8px;
-            line-height: 1.2;
         }
 
         .card-arrow {
@@ -1039,7 +1025,7 @@
 
             .command-button {
                 min-height: 38px;
-                font-size: 9px;
+                font-size: 12px; /* Tamaño de letra aumentado para móvil */
             }
 
             .portal-meta {
@@ -1076,11 +1062,7 @@
             }
 
             .card-title {
-                font-size: 11px;
-            }
-
-            .card-desc {
-                font-size: 8.5px;
+                font-size: 14px; /* Tamaño de letra aumentado para móvil */
             }
         }
 
@@ -1294,7 +1276,7 @@
             {
                         "nombre": "Gemini",
                         "link": "https://gemini.google.com/app",
-                        "icono": "✨",
+                        "icono": "G",
                         "categoria": "Herramientas generales"
             },
             {
@@ -1324,7 +1306,7 @@
             {
                         "nombre": "Calculadora",
                         "link": "https://patriciocerdag-ctrl.github.io/calculadora/",
-                        "icono": "＝",
+                        "icono": "X=",
                         "categoria": "Herramientas generales"
             },
             {
@@ -1340,7 +1322,7 @@
                         "categoria": "Herramientas generales"
             },
             {
-                        "nombre": "Rx - Controlado",
+                        "nombre": "Rp - Controlado",
                         "link": "https://docs.google.com/document/d/1nRKoktTFIDMmOtkj_OADxF5eQlgLwKfm1pDz9NpV3t4/edit?tab=t.0",
                         "icono": "💊",
                         "categoria": "COSAM-CEIF"
@@ -1396,7 +1378,7 @@
             {
                         "nombre": "BioNet",
                         "link": "https://docs.google.com/spreadsheets/d/1DjsVWzrroGIN0yWRCikVRKv6JK2daPWz/edit?gid=1511189274#gid=1511189274",
-                        "icono": "🩸",
+                        "icono": "B",
                         "categoria": "COSAM-CEIF"
             },
             {
@@ -1665,16 +1647,13 @@
             title.className = "card-title";
             title.textContent = acceso.nombre;
 
-            const description = document.createElement("div");
-            description.className = "card-desc";
-            description.textContent = acceso.categoria;
-
             const arrow = document.createElement("div");
             arrow.className = "card-arrow";
             arrow.setAttribute("aria-hidden", "true");
             arrow.innerHTML = ICON_EXTERNAL;
 
-            info.append(title, description);
+            // Eliminamos la creación de la descripción (card-desc) según la petición
+            info.append(title);
             card.append(icon, info, arrow);
 
             return card;
