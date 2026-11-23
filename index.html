@@ -102,7 +102,6 @@ button,input{font:inherit;color:inherit}
   background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23155563' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E")}
 .t:hover::after,.t:focus-visible::after{opacity:1;transform:none}
 /* punto de tipo de archivo */
-.t[data-type]::before{content:"";position:absolute;top:.55cqw;left:.55cqw;width:.6cqw;height:.6cqw;border-radius:50%;background:var(--dot)}
 .t[data-type=folder]{--dot:var(--c-folder)}.t[data-type=sheet]{--dot:var(--c-sheet)}.t[data-type=doc]{--dot:var(--c-doc)}
 .t[data-type=form]{--dot:var(--c-form)}.t[data-type=web]{--dot:var(--c-web)}
 
@@ -118,7 +117,7 @@ button,input{font:inherit;color:inherit}
 .searching .t.first{box-shadow:0 0 0 .25cqw var(--teal)}
 
 /* pie */
-.foot{display:flex;align-items:center;justify-content:space-between;gap:1cqw;padding:.75cqw .3cqw 0;font-size:.92cqw;color:var(--muted);flex-wrap:wrap}
+.foot{display:flex;align-items:center;justify-content:flex-end;gap:1cqw;padding:.75cqw .3cqw 0;font-size:.92cqw;color:var(--muted);flex-wrap:wrap}
 .legend{display:flex;gap:1.1cqw;flex-wrap:wrap;align-items:center}
 .legend i{display:inline-block;width:.65cqw;height:.65cqw;border-radius:50%;margin-right:.35cqw;vertical-align:middle;position:relative;top:-.05em}
 .tips b{background:#ffffffaa;border:1px solid var(--line);border-radius:.4cqw;padding:0 .35cqw;font-size:.9em}
@@ -168,7 +167,6 @@ button,input{font:inherit;color:inherit}
   .big{font-size:18px}
   .oe{font-size:24px}
   .t::after{top:6px;right:6px;width:12px;height:12px}
-  .t[data-type]::before{top:7px;left:7px;width:7px;height:7px}
   .c-hl{border-width:2px}
   .searching .t.on{box-shadow:0 0 0 2px #15556333}.searching .t.first{box-shadow:0 0 0 3px var(--teal)}
   /* en pantallas chicas, al buscar se ocultan los botones que no coinciden */
@@ -178,7 +176,7 @@ button,input{font:inherit;color:inherit}
   #empty{background:#fff;border-radius:14px;padding:18px;text-align:center;color:var(--muted);margin-top:12px;font-size:14px}
   .foot{font-size:11.5px;padding:12px 4px 0;gap:8px;justify-content:center;text-align:center}
   .legend{gap:12px;justify-content:center}.legend i{width:8px;height:8px;margin-right:4px}
-  .tips{display:none}
+  .tips .kb{display:none}
   .hero{position:sticky;top:6px;z-index:5}
 }
 /* =================== CELULAR =================== */
@@ -381,14 +379,7 @@ button,input{font:inherit;color:inherit}
   </div>
 
   <footer class="foot">
-    <div class="legend" aria-label="Tipo de archivo que abre cada botón">
-      <span><i style="background:var(--c-folder)"></i>Carpeta</span>
-      <span><i style="background:var(--c-sheet)"></i>Planilla</span>
-      <span><i style="background:var(--c-doc)"></i>Documento</span>
-      <span><i style="background:var(--c-form)"></i>Formulario</span>
-      <span><i style="background:var(--c-web)"></i>Plataforma web</span>
-    </div>
-    <div class="tips">Atajo: <b>/</b> buscar · <b>Enter</b> abrir el primero · <b>Esc</b> limpiar &nbsp;·&nbsp; Algunos accesos requieren iniciar sesión.</div>
+    <div class="tips"><span class="kb">Atajo: <b>/</b> buscar · <b>Enter</b> abrir el primero · <b>Esc</b> limpiar &nbsp;·&nbsp; </span>Algunos accesos requieren iniciar sesión.</div>
   </footer>
 </div>
 </main>
