@@ -8,149 +8,203 @@
 <title>INICIO · Portal de accesos</title>
 <style>
 :root{
-  --teal:#155563; --teal-2:#76a6b5; --bg:#d4e2e4; --panel:#ffffff;
-  --tile:#efeff1; --tile-hover:#e2e7e9; --ink:#111; --muted:#53656b;
+  --teal:#155563; --teal-d:#0e3f4a; --teal-2:#76a6b5; --teal-soft:#e4eff1;
+  --bg1:#dbe8ea; --bg2:#c8dadd; --card:#fff; --tile:#f3f6f7; --line:#e1e9eb;
+  --ink:#13262b; --muted:#5d7177;
+  --c-folder:#e3a008; --c-sheet:#1e8e3e; --c-doc:#1a73e8; --c-form:#7b3fc4; --c-web:#8fa0a6;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink);min-height:100vh}
+body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 600px at 15% -10%,#eef5f6 0,transparent 60%),linear-gradient(180deg,var(--bg1),var(--bg2));background-attachment:fixed}
 a{color:inherit;text-decoration:none}
 svg{display:block}
+button,input{font:inherit;color:inherit}
 
-/* ---------- Estructura (escritorio, proporciones del original) ---------- */
-.portal{max-width:1800px;margin:0 auto;container-type:inline-size}
-.portal{padding:1.4cqw 1.4cqw 2cqw}
+/* =================== ESCRITORIO (medidas en % del ancho del portal) =================== */
+.portal{margin:0 auto;max-width:1800px;container-type:inline-size}
+.inner{padding:1.1cqw 1.3cqw .6cqw}
 
-.hero{display:flex;align-items:center;gap:3.3cqw;background:var(--teal);border:2px solid #fff;border-radius:2cqw;
-  padding:.9cqw 1.1cqw;min-height:7.8cqw;box-shadow:0 2px 8px #0f3c4622}
-.hero-plus{width:6.4cqw;height:6cqw;border-radius:1cqw;background:var(--teal-2);border:2px solid #b9d0d6;display:grid;place-items:center;flex-shrink:0}
-.hero-plus svg{width:52%;height:52%}
-.hero-copy{flex:1;min-width:0;color:#fff}
-.hero h1{margin:0;font-size:2.35cqw;letter-spacing:.02em;line-height:1.1}
-.hero p{margin:.6cqw 0 0;font-size:1.75cqw;font-style:italic}
-.hero-cal{width:6.4cqw;height:6cqw;border-radius:1cqw;background:#a7c4ca;border:2px solid #c9dde0;display:grid;place-items:center;flex-shrink:0;transition:transform .12s,filter .12s}
-.hero-cal svg{width:56%;height:56%}
-.hero-cal:hover{filter:brightness(1.06);transform:translateY(-1px)}
+/* Encabezado */
+.hero{display:flex;align-items:center;gap:1.5cqw;background:linear-gradient(100deg,var(--teal-d),var(--teal) 55%,#1d6a79);
+  border-radius:1.6cqw;padding:.85cqw 1cqw;height:6.4cqw;box-shadow:0 .4cqw 1.4cqw #0e3f4a33;color:#fff}
+.logo{width:4.7cqw;height:4.7cqw;border-radius:1cqw;background:var(--teal-2);border:.12cqw solid #c3d8dd;display:grid;place-items:center;flex-shrink:0}
+.logo svg{width:50%;height:50%}
+.hero-copy{min-width:0;flex:0 1 auto}
+.hero h1{margin:0;font-size:2.1cqw;letter-spacing:.04em;line-height:1.05}
+.hero p{margin:.35cqw 0 0;font-size:1.2cqw;font-style:italic;opacity:.92;white-space:nowrap}
+.hero .greet{font-style:normal;font-weight:700;opacity:1}
 
-.panel{background:var(--panel);border-radius:1.8cqw;padding:.85cqw 1.2cqw;margin-top:1.8cqw}
+.search{flex:1;display:flex;justify-content:flex-end;min-width:0}
+.sbox{position:relative;width:min(100%,34cqw)}
+.sbox svg.mag{position:absolute;left:1.05cqw;top:50%;transform:translateY(-50%);width:1.45cqw;height:1.45cqw;pointer-events:none}
+#q{width:100%;height:3.5cqw;border:.12cqw solid #ffffff55;border-radius:3cqw;background:#ffffff1f;color:#fff;
+  padding:0 9cqw 0 3.2cqw;font-size:1.25cqw;outline:none;transition:background .15s,border-color .15s}
+#q::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+#q::placeholder{color:#e2eef0;opacity:.9}
+#q:focus{background:#fff;color:var(--ink);border-color:#fff}
+#q:focus::placeholder{color:#7f9297}
+.sbox:focus-within svg.mag{color:var(--teal)}
+.sbox svg.mag{color:#fff}
+.kbd{position:absolute;right:.6cqw;top:50%;transform:translateY(-50%);font-size:.95cqw;font-weight:700;padding:.3cqw .7cqw;border-radius:.6cqw;
+  background:#ffffff26;color:#eaf4f5;pointer-events:none;white-space:nowrap}
+.sbox:focus-within .kbd{background:var(--teal-soft);color:var(--teal)}
+#clear{position:absolute;right:.5cqw;top:50%;transform:translateY(-50%);border:0;background:var(--teal-soft);color:var(--teal);
+  border-radius:2cqw;font-size:.95cqw;font-weight:700;padding:.35cqw .8cqw;cursor:pointer;display:none}
+.searching #clear{display:block}.searching .kbd{display:none}
 
-.grid{display:grid;gap:.95cqw .95cqw;grid-auto-rows:6cqw;grid-auto-flow:row dense}
+.cal{display:flex;align-items:center;gap:.7cqw;height:4.7cqw;padding:0 1.2cqw 0 .9cqw;border-radius:1cqw;background:#a7c4ca;color:#0d2c33;
+  border:.12cqw solid #c9dde0;flex-shrink:0;font-weight:700;font-size:1.1cqw;transition:transform .12s,filter .12s}
+.cal svg{width:2.7cqw;height:2.7cqw}
+.cal:hover{filter:brightness(1.07);transform:translateY(-1px)}
+
+/* Tarjetas de sección */
+.card{background:var(--card);border-radius:1.5cqw;padding:.9cqw 1.1cqw 1.1cqw;box-shadow:0 .15cqw .6cqw #0e3f4a14;border:1px solid #ffffffaa}
+.stack>.card,.stack>.duo{margin-top:1.05cqw}
+.sh{display:flex;align-items:center;gap:.7cqw;height:2.5cqw;margin-bottom:.7cqw}
+.sh .bdg{width:2.3cqw;height:2.3cqw;border-radius:.65cqw;background:var(--teal);display:grid;place-items:center;flex-shrink:0}
+.sh .bdg svg{width:62%;height:62%}
+.sh h2{margin:0;font-size:1.5cqw;color:var(--teal-d);letter-spacing:.01em}
+.sh .org{font-size:1.05cqw;font-weight:700;color:var(--muted);background:var(--teal-soft);padding:.25cqw .75cqw;border-radius:2cqw;white-space:nowrap}
+.sh .n{margin-left:auto;font-size:.95cqw;color:var(--muted);white-space:nowrap}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.05cqw}
+
+.grid{display:grid;gap:.75cqw;grid-auto-rows:5.9cqw;grid-auto-flow:row dense}
 .g13{grid-template-columns:repeat(13,1fr)}
 .g6{grid-template-columns:repeat(6,1fr)}
 
-.duo{display:grid;grid-template-columns:1fr 1fr;column-gap:7cqw;margin-top:1.4cqw}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;background:var(--teal);color:#fff;border-radius:.9cqw;
-  padding:0 1.5cqw;height:4cqw;align-items:center}
-.sec-head h2{margin:0;font-size:1.95cqw;letter-spacing:.01em}
-.sec-head small{font-size:1.3cqw;font-weight:700;color:#e4eef0;align-self:flex-end;padding-bottom:.7cqw}
-.sec-body{padding:.75cqw 0 0 1.2cqw}
-.sec-body .grid{row-gap:1.6cqw}
-.nova{margin-top:1.4cqw}
-.nova .sec-head{border-radius:.9cqw;margin-left:-.4cqw;margin-right:-.4cqw;padding-left:1.2cqw}
-.nova .sec-body{padding-left:1.2cqw;padding-right:.6cqw}
-
-/* ---------- Tiles ---------- */
-.t{position:relative;display:flex;align-items:center;justify-content:center;gap:.9cqw;background:var(--tile);border-radius:1cqw;
-  font-weight:700;font-size:1.9cqw;line-height:1.12;text-align:center;padding:.4cqw .6cqw;overflow:hidden;
-  transition:transform .12s ease,box-shadow .12s ease,background .12s ease;box-shadow:0 1px 0 #00000008}
-.t:hover{transform:translateY(-2px);box-shadow:0 6px 14px #1b4c5726;background:var(--tile-hover)}
+/* Botones */
+.t{position:relative;display:flex;align-items:center;justify-content:center;gap:.8cqw;background:var(--tile);border:1px solid var(--line);
+  border-radius:1cqw;font-weight:700;font-size:1.55cqw;line-height:1.12;text-align:center;padding:.4cqw .6cqw;overflow:hidden;
+  transition:transform .14s ease,box-shadow .14s ease,background .14s ease,border-color .14s ease,opacity .2s ease}
+.t:hover{background:#fff;border-color:#8fb7c0;transform:translateY(-.15cqw);box-shadow:0 .5cqw 1.2cqw #0e3f4a22}
 .t:active{transform:translateY(0)}
-.t:focus-visible,.hero-cal:focus-visible{outline:3px solid #f5b83b;outline-offset:3px}
+.t:focus-visible,.cal:focus-visible,#q:focus-visible{outline:.22cqw solid #f5b83b;outline-offset:.2cqw}
 .w2{grid-column:span 2}
-.t .ic{width:3.3cqw;height:3.3cqw;flex-shrink:0}
-.t.solo .ic{width:3.4cqw;height:3.4cqw}
-.t .lbl{display:block}
-.t .sub{display:block;font-size:.84em}
-.nofav .cap{display:none!important}
-.t .cap{display:none}
-.t .fav{width:3.4cqw;height:3.4cqw;object-fit:contain;flex-shrink:0}
-.t.txt{font-size:1.9cqw}
-.t.txt2{font-size:1.65cqw}
-.t.txt2 .sub{font-size:.8em}
-.t.vert{flex-direction:column;gap:.35cqw;font-size:1.15cqw}
-.t.vert .ic{width:2.2cqw;height:2.2cqw}
+.t .ic{width:2.8cqw;height:2.8cqw;flex-shrink:0}
+.t .lbl small{display:block;font-size:.8em;margin-top:.1em}
+/* botones compactos: ícono + nombre debajo */
+.t.s{flex-direction:column;gap:.35cqw;padding:.5cqw .3cqw}
+.t.s .ic,.t.s .fav{width:2.3cqw;height:2.3cqw}
+.cap{display:block;font-size:.98cqw;font-weight:700;color:#41545a;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.big{font-size:1.6cqw;line-height:1.05}
+.cap.fit{font-size:.84cqw;letter-spacing:-.01em}
+.cap.two{white-space:normal;font-size:.9cqw;line-height:1.08}
+.t.s:has(.two) .ic{width:2cqw;height:2cqw}
+.t.s:has(.two){gap:.25cqw}
+.big small{display:block;font-size:.78em}
+.fav{object-fit:contain;border-radius:.4cqw}
+.fb{width:2.3cqw;height:2.3cqw;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:1cqw;font-weight:700}
+.oe{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:2.05cqw;line-height:1;color:#2f5f86;letter-spacing:-.02em}
 
-/* colores especiales del original */
-.c-mail{background:#f1cdd0}.c-mail:hover{background:#ecbfc3}
-.c-out{background:#e4eafc}.c-out:hover{background:#d8e0fa}
-.c-black{background:#000}.c-black:hover{background:#1b1b1b}
-.c-ring{background:#fff;box-shadow:inset 0 0 0 .3cqw #ececee}
-.c-ring:hover{background:#f7f7f8}
-.c-ring2{box-shadow:inset 0 0 0 .3cqw #fff,0 0 0 .2cqw #e9eef0}
-.oe{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:2.7cqw;color:#2f5f86;letter-spacing:-.02em}
+/* flecha "abrir" al pasar el mouse */
+.t::after{content:"";position:absolute;top:.45cqw;right:.45cqw;width:1cqw;height:1cqw;opacity:0;transform:translate(-2px,2px);transition:.15s;
+  background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23155563' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E")}
+.t:hover::after,.t:focus-visible::after{opacity:1;transform:none}
+/* punto de tipo de archivo */
+.t[data-type]::before{content:"";position:absolute;top:.55cqw;left:.55cqw;width:.6cqw;height:.6cqw;border-radius:50%;background:var(--dot)}
+.t[data-type=folder]{--dot:var(--c-folder)}.t[data-type=sheet]{--dot:var(--c-sheet)}.t[data-type=doc]{--dot:var(--c-doc)}
+.t[data-type=form]{--dot:var(--c-form)}.t[data-type=web]{--dot:var(--c-web)}
 
-.footer-note{font-size:12px;text-align:center;color:var(--muted);padding:6px 16px 20px;margin:0}
+/* colores especiales */
+.c-mail{background:#f6dadc;border-color:#efc9cc}.c-mail:hover{background:#fbe6e7;border-color:#e4a9ae}
+.c-out{background:#e6ecfc;border-color:#d5def8}.c-out:hover{background:#eef2fd}
+.c-black{background:#111;border-color:#111}.c-black .cap{color:#eee}.c-black:hover{background:#222;border-color:#333}
+.c-hl{border:.18cqw solid #9cc3cb;background:#fff}
 
-/* ---------- Notebooks y monitores: el portal se ajusta al ALTO y al ANCHO de la ventana,
-   para que se vea completo sin scroll (13" = ~1280-1536 px de ancho y ~580-760 px de alto útil) ---------- */
+/* búsqueda: resaltar coincidencias */
+.searching .t.off{opacity:.18;filter:grayscale(1);pointer-events:none}
+.searching .t.on{border-color:var(--teal);box-shadow:0 0 0 .18cqw #15556333;background:#fff}
+.searching .t.first{box-shadow:0 0 0 .25cqw var(--teal)}
+
+/* pie */
+.foot{display:flex;align-items:center;justify-content:space-between;gap:1cqw;padding:.75cqw .3cqw 0;font-size:.92cqw;color:var(--muted);flex-wrap:wrap}
+.legend{display:flex;gap:1.1cqw;flex-wrap:wrap;align-items:center}
+.legend i{display:inline-block;width:.65cqw;height:.65cqw;border-radius:50%;margin-right:.35cqw;vertical-align:middle;position:relative;top:-.05em}
+.tips b{background:#ffffffaa;border:1px solid var(--line);border-radius:.4cqw;padding:0 .35cqw;font-size:.9em}
+#empty{display:none}
+
+/* Se ajusta al alto y al ancho: en notebooks de 13" se ve completo sin scroll */
 @media (min-width:1000px){
-  .portal{width:100%;width:min(100%, 1800px, calc((100vh - 34px) * 1.92));width:min(100%, 1800px, calc((100dvh - 34px) * 1.92));min-width:960px}
-  .footer-note{font-size:11px;padding:2px 16px 8px}
+  .portal{width:100%;width:min(100%,1800px,calc((100vh - 6px) * 1.86));width:min(100%,1800px,calc((100dvh - 6px) * 1.86));min-width:960px}
+  body{display:flex;align-items:center;justify-content:center}
 }
-@media (min-width:1000px) and (max-height:500px){ .portal{min-width:960px} }
 
-/* ---------- Pantallas muy grandes ---------- */
-
-
-/* ---------- Tablet / ventanas angostas ---------- */
+/* =================== TABLET =================== */
 @media (max-width:999px){
-  .portal{padding:12px 12px 16px;max-width:760px}
-  .hero{gap:14px;border-radius:14px;padding:10px;min-height:72px}
-  .hero-plus,.hero-cal{width:52px;height:50px;border-radius:10px}
-  .hero h1{font-size:22px}.hero p{font-size:13.5px;margin-top:5px}
-  .panel{border-radius:16px;padding:10px;margin-top:12px}
-  .grid{gap:9px;grid-auto-rows:78px}
+  .inner{padding:12px 12px 16px;max-width:760px;margin:0 auto}
+  .hero{height:auto;flex-wrap:wrap;gap:10px 12px;border-radius:16px;padding:10px 12px}
+  .logo{width:46px;height:46px;border-radius:11px;border-width:1.5px}
+  .hero-copy{flex:1}
+  .hero h1{font-size:21px}.hero p{font-size:12.5px;margin-top:4px;white-space:normal}
+  .cal{height:46px;width:46px;padding:0;justify-content:center;border-radius:11px;font-size:0}
+  .cal svg{width:27px;height:27px}.cal span{display:none}
+  .search{order:3;flex-basis:100%}
+  .sbox{width:100%}
+  .sbox svg.mag{left:13px;width:18px;height:18px}
+  #q{height:44px;border-radius:22px;font-size:16px;padding:0 82px 0 40px;border-width:1.5px}
+  .kbd{display:none}
+  #clear{font-size:12.5px;padding:6px 11px;right:6px;border-radius:16px}
+  .stack>.card,.stack>.duo{margin-top:12px}
+  .card{border-radius:16px;padding:11px 11px 12px}
+  .sh{height:30px;gap:8px;margin-bottom:9px}
+  .sh .bdg{width:28px;height:28px;border-radius:8px}
+  .sh h2{font-size:17px}.sh .org{font-size:11.5px;padding:3px 8px;border-radius:12px}.sh .n{font-size:11.5px}
+  .duo{grid-template-columns:1fr;gap:12px}
+  .grid{gap:8px;grid-auto-rows:76px}
   .g13,.g6{grid-template-columns:repeat(6,1fr)}
-  .duo{grid-template-columns:1fr;row-gap:14px;margin-top:14px}
-  .sec-head{height:46px;border-radius:10px;padding:0 14px}
-  .sec-head h2{font-size:19px}.sec-head small{font-size:12.5px;padding-bottom:12px;text-align:right}
-  .sec-body{padding:9px 0 0}
-  .sec-body .grid{row-gap:9px}
-  .nova{margin-top:14px}.nova .sec-head{margin:0;padding-left:14px}.nova .sec-body{padding:9px 0 0}
-  .t{border-radius:12px;font-size:17px;gap:9px;padding:6px 8px}
-  .t .ic{width:32px;height:32px}.t.solo .ic{width:30px;height:30px}
-  .t .fav{width:32px;height:32px}
-  .t.txt{font-size:18px}.t.txt2{font-size:16px}
-  .t.vert{font-size:12px;gap:4px}.t.vert .ic{width:24px;height:24px}
-  .oe{font-size:26px}
-  .c-ring{box-shadow:inset 0 0 0 3px #ececee}
-  .c-ring2{box-shadow:inset 0 0 0 3px #fff,0 0 0 2px #e9eef0}
-  /* en pantallas chicas, los botones de solo ícono muestran su nombre */
-  .t.solo{flex-direction:column;gap:4px}
-  .t.solo .cap{display:block;font-size:11px;font-weight:700;color:#3d4d52;line-height:1.1}
-  .c-black .cap{color:#e9e9e9!important}
-  .t.solo .fav{width:28px;height:28px}
-  .t.solo.oe-t .oe{font-size:22px;line-height:1}
+  .t{border-radius:12px;font-size:16px;gap:9px;padding:6px 8px}
+  .t:hover{transform:translateY(-2px)}
+  .t .ic{width:30px;height:30px}
+  .t.s{gap:5px;padding:6px 4px}
+  .t.s .ic,.t.s .fav,.fb{width:27px;height:27px}
+  .fb{font-size:11px}
+  .fav{border-radius:5px}
+  .cap{font-size:11.5px}
+  .cap.fit{font-size:10px}
+  .cap.two{font-size:10.5px}
+  .t.s:has(.two) .ic{width:23px;height:23px}
+  body{background-attachment:scroll}
+  .big{font-size:18px}
+  .oe{font-size:24px}
+  .t::after{top:6px;right:6px;width:12px;height:12px}
+  .t[data-type]::before{top:7px;left:7px;width:7px;height:7px}
+  .c-hl{border-width:2px}
+  .searching .t.on{box-shadow:0 0 0 2px #15556333}.searching .t.first{box-shadow:0 0 0 3px var(--teal)}
+  /* en pantallas chicas, al buscar se ocultan los botones que no coinciden */
+  .searching .t.off{display:none}
+  .searching .hide{display:none}
+  .searching #empty.show{display:block}
+  #empty{background:#fff;border-radius:14px;padding:18px;text-align:center;color:var(--muted);margin-top:12px;font-size:14px}
+  .foot{font-size:11.5px;padding:12px 4px 0;gap:8px;justify-content:center;text-align:center}
+  .legend{gap:12px;justify-content:center}.legend i{width:8px;height:8px;margin-right:4px}
+  .tips{display:none}
+  .hero{position:sticky;top:6px;z-index:5}
 }
-
-/* ---------- Celular ---------- */
+/* =================== CELULAR =================== */
 @media (max-width:599px){
-  .portal{padding:10px 10px 14px}
-  .hero{gap:11px}
-  .hero-plus,.hero-cal{width:46px;height:46px}
-  .hero h1{font-size:20px}.hero p{font-size:12px}
+  .inner{padding:8px 9px 14px}
+  .hero h1{font-size:19px}.hero p{font-size:11.5px}
   .g13,.g6{grid-template-columns:repeat(4,1fr)}
-  .grid{gap:8px;grid-auto-rows:74px}
-  .sec-head{height:44px}
-  .sec-head h2{font-size:17px}.sec-head small{font-size:11px}
-  .t{font-size:15px;gap:7px;padding:6px}
-  .t .ic{width:26px;height:26px}
-  .t.txt{font-size:16px}.t.txt2{font-size:14px}
-  .t.vert{font-size:11px}
-  .t.solo .cap{font-size:10.5px}
+  .grid{gap:7px;grid-auto-rows:72px}
+  .t{font-size:14.5px;gap:7px;padding:6px}
+  .t .ic{width:25px;height:25px}
+  .t.s .ic,.t.s .fav,.fb{width:25px;height:25px}
+  .big{font-size:16px}
+  .cap{font-size:11px}
+  .sh .n{display:none}
 }
 @media (max-width:360px){
-  .portal{padding:7px}
-  .t{font-size:13.5px}.t .ic{width:22px;height:22px}
-  .hero p{font-size:11px}
-  .t.solo .cap{font-size:9.5px}
+  .inner{padding:6px}
+  .t{font-size:13px}.t .ic{width:21px;height:21px}
+  .cap{font-size:10px}.hero p{font-size:10.5px}
+  .sh .org{font-size:10px}
 }
-@media (prefers-reduced-motion:reduce){.t,.hero-cal{transition:none}.t:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.t,.cal,.t::after{transition:none}.t:hover{transform:none}}
 </style>
 </head>
 <body>
 
-<!-- ============ Íconos (SVG reutilizables) ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" fill="#fff"/></symbol>
@@ -226,106 +280,196 @@ svg{display:block}
     <symbol id="i-docfill" viewBox="0 0 48 48"><path d="M7 2h22l12 12v32H7z" fill="#000"/><path d="M29 2v12h12" fill="#fff" stroke="#000" stroke-width="2.4"/><path d="M12 19h24M12 25h24M12 31h24M12 37h17" stroke="#fff" stroke-width="2.6"/></symbol>
     <symbol id="i-pagedoc" viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="2.6" stroke-linejoin="round"><path d="M10 2h19l9 9v35H10z"/><path d="M29 2v9h9"/><path d="M15 21h18M15 27h18M15 33h18"/></symbol>
     <symbol id="i-rayen" viewBox="0 0 48 48"><path d="M6 12c10 0 17 6 18 16-2 9-6 15-10 17C7 39 3 24 6 12z" fill="#2f6fd6"/><path d="M42 12c-10 0-17 6-18 16 2 9 6 15 10 17 7-6 11-21 8-33z" fill="#1d4fa8"/><path d="M24 28c-3-8-1-16 6-22 6 7 1 16-6 22z" fill="#4cc28a"/><circle cx="19" cy="11" r="4" fill="#93d36b"/></symbol>
+  
+    <symbol id="i-lab" viewBox="0 0 48 48"><path d="M10 6h14M30 6h10" stroke="#000" stroke-width="3" stroke-linecap="round"/><path d="M12 6v30a5 5 0 0 0 10 0V6" fill="none" stroke="#000" stroke-width="3"/><path d="M12 24h10v12a5 5 0 0 1-10 0z" fill="#000"/><path d="M32 6v30a5 5 0 0 0 10 0V6" fill="none" stroke="#000" stroke-width="3"/><path d="M32 18h10v18a5 5 0 0 1-10 0z" fill="#000"/><path d="M4 45h40" stroke="#000" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></symbol>
+    <symbol id="s-apps" viewBox="0 0 24 24" fill="#fff"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></symbol>
+    <symbol id="s-hosp" viewBox="0 0 24 24" fill="#fff"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16h-6v-4h-4v4z"/><path d="M11 6h2v2.5h2.5v2H13V13h-2v-2.5H8.5v-2H11z" fill="#155563"/></symbol>
+    <symbol id="s-people" viewBox="0 0 24 24" fill="#fff"><circle cx="8" cy="7.5" r="3.5"/><circle cx="17" cy="9" r="2.8"/><path d="M1.5 20c0-4 3-6.5 6.5-6.5s6.5 2.5 6.5 6.5z"/><path d="M15.5 20c0-2.5-.8-4.4-2.2-5.6.9-.6 2.1-.9 3.7-.9 3 0 5.5 2 5.5 6.5z"/></symbol>
+    <symbol id="s-heart" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-8.5-5.2-8.5-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.2C20.5 15.8 12 21 12 21z"/><path d="M5 12h3.5l1.5-2.5 2.5 5 1.5-2.5H19" fill="none" stroke="#155563" stroke-width="1.6" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
-<main class="portal" aria-label="Portal de inicio">
+<main class="portal" id="portal">
+<div class="inner">
 
-  <!-- ============ Encabezado ============ -->
+  <!-- ================= ENCABEZADO ================= -->
   <header class="hero">
-    <div class="hero-plus" aria-hidden="true"><svg><use href="#i-plus"/></svg></div>
+    <div class="logo" aria-hidden="true"><svg><use href="#i-plus"/></svg></div>
     <div class="hero-copy">
       <h1>INICIO</h1>
-      <p>Selecciona la acción que deseas realizar</p>
+      <p><span class="greet" id="greet">Hola</span> · <span id="today">Selecciona la acción que deseas realizar</span></p>
     </div>
-    <a class="hero-cal" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener noreferrer" title="Google Calendar" aria-label="Abrir Google Calendar"><svg><use href="#i-cal"/></svg></a>
+    <div class="search" role="search">
+      <div class="sbox">
+        <svg class="mag" aria-hidden="true"><use href="#i-mag"/></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar acceso… (ej: receta, LM)" aria-label="Buscar un acceso. Enter abre el primer resultado">
+        <span class="kbd" aria-hidden="true">Presiona /</span>
+        <button id="clear" type="button" aria-label="Limpiar búsqueda">Limpiar ✕</button>
+      </div>
+    </div>
+    <a class="cal" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener noreferrer" title="Google Calendar" aria-label="Abrir Google Calendar"><svg><use href="#i-cal"/></svg><span>Calendario</span></a>
   </header>
 
-  <!-- ============ Herramientas generales ============ -->
-  <section class="panel" aria-label="Herramientas generales">
+  <div class="stack">
+  <!-- ================= HERRAMIENTAS GENERALES ================= -->
+  <section class="card" aria-labelledby="h-gen">
+    <div class="sh"><span class="bdg"><svg><use href="#s-apps"/></svg></span><h2 id="h-gen">Herramientas</h2><span class="org">Correo · IA · Utilidades</span><span class="n"></span></div>
     <div class="grid g13">
-      <a class="t solo c-mail" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" target="_blank" rel="noopener noreferrer" title="Gmail"><svg class="ic"><use href="#i-mail"/></svg><span class="cap">Gmail</span></a>
-      <a class="t w2 txt" href="https://drive.google.com/drive/u/0/home" target="_blank" rel="noopener noreferrer" title="Google Drive"><svg class="ic"><use href="#i-cloud"/></svg><span class="lbl">Google<br>Drive</span></a>
-      <a class="t solo c-out" href="https://outlook.office.com/mail/?realm=cmpuentealto.cl&login_hint=patricio.cerda@cmpuentealto.cl" target="_blank" rel="noopener noreferrer" title="Outlook"><svg class="ic"><use href="#i-mailbox"/></svg><span class="cap">Outlook</span></a>
-      <a class="t solo" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" title="ChatGPT"><img class="fav" src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="" loading="lazy" data-fb="GPT"><span class="cap">ChatGPT</span></a>
-      <a class="t solo c-black" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer" title="Gemini"><img class="fav" src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="" loading="lazy" data-fb="Gemini"><span class="cap">Gemini</span></a>
-      <a class="t solo" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" title="Claude"><img class="fav" src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="" loading="lazy" data-fb="Claude"><span class="cap">Claude</span></a>
-      <a class="t solo c-ring" href="https://consensus.app/" target="_blank" rel="noopener noreferrer" title="Consensus"><img class="fav" src="https://www.google.com/s2/favicons?domain=consensus.app&sz=128" alt="" loading="lazy" data-fb="Consensus"><span class="cap">Consensus</span></a>
-      <a class="t solo oe-t" href="https://www.openevidence.com/" target="_blank" rel="noopener noreferrer" title="OpenEvidence"><span class="oe">OE</span><span class="cap">OpenEvidence</span></a>
-      <a class="t w2 txt" href="https://patriciocerdag-ctrl.github.io/mi-sitio-web/" target="_blank" rel="noopener noreferrer" title="Escalas"><svg class="ic"><use href="#i-chart"/></svg><span class="lbl">Escalas</span></a>
-      <a class="t solo" href="https://patriciocerdag-ctrl.github.io/calculadora/" target="_blank" rel="noopener noreferrer" title="Calculadora"><svg class="ic"><use href="#i-calc"/></svg><span class="cap">Calculadora</span></a>
-      <a class="t solo" href="https://keep.google.com/u/0/" target="_blank" rel="noopener noreferrer" title="Google Keep"><svg class="ic"><use href="#i-notes"/></svg><span class="cap">Keep</span></a>
+      <a class="t s c-mail" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" title="Gmail" data-k="correo email mail google"><svg class="ic"><use href="#i-mail"/></svg><span class="cap">Gmail</span></a>
+      <a class="t w2" href="https://drive.google.com/drive/u/0/home" title="Google Drive" data-k="archivos carpetas nube"><svg class="ic"><use href="#i-cloud"/></svg><span class="lbl">Google<small>Drive</small></span></a>
+      <a class="t s c-out" href="https://outlook.office.com/mail/?realm=cmpuentealto.cl&login_hint=patricio.cerda@cmpuentealto.cl" title="Outlook (correo institucional)" data-k="correo email institucional cmpuentealto microsoft"><svg class="ic"><use href="#i-mailbox"/></svg><span class="cap">Outlook</span></a>
+      <a class="t s" href="https://chatgpt.com/" title="ChatGPT" data-k="ia inteligencia artificial openai chat"><img class="fav" src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="" data-fb="G"><span class="cap">ChatGPT</span></a>
+      <a class="t s c-black" href="https://gemini.google.com/app" title="Gemini" data-k="ia inteligencia artificial google"><img class="fav" src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="" data-fb="G"><span class="cap">Gemini</span></a>
+      <a class="t s" href="https://claude.ai/new" title="Claude" data-k="ia inteligencia artificial anthropic"><img class="fav" src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="" data-fb="C"><span class="cap">Claude</span></a>
+      <a class="t s" href="https://consensus.app/" title="Consensus (búsqueda de evidencia)" data-k="ia evidencia papers estudios"><img class="fav" src="https://www.google.com/s2/favicons?domain=consensus.app&sz=128" alt="" data-fb="C"><span class="cap">Consensus</span></a>
+      <a class="t s" href="https://www.openevidence.com/" title="OpenEvidence" data-k="ia evidencia medica oe"><span class="oe">OE</span><span class="cap fit">OpenEvidence</span></a>
+      <a class="t w2" href="https://patriciocerdag-ctrl.github.io/mi-sitio-web/" title="Escalas clínicas" data-k="escalas test puntaje clinicas"><svg class="ic"><use href="#i-chart"/></svg><span class="lbl">Escalas</span></a>
+      <a class="t s" href="https://patriciocerdag-ctrl.github.io/calculadora/" title="Calculadora" data-k="calcular dosis"><svg class="ic"><use href="#i-calc"/></svg><span class="cap">Calculadora</span></a>
+      <a class="t s" href="https://keep.google.com/u/0/" title="Google Keep (notas)" data-k="notas apuntes google"><svg class="ic"><use href="#i-notes"/></svg><span class="cap">Notas Keep</span></a>
     </div>
   </section>
 
-  <!-- ============ Enlace + CEIF ============ -->
   <div class="duo">
-    <section aria-label="Accesos Enlace HBLT">
-      <div class="sec-head"><h2>Accesos Enlace</h2><small>HBLT</small></div>
-      <div class="sec-body">
-        <div class="grid g6">
-          <a class="t w2 txt" href="https://docs.google.com/spreadsheets/d/1YN2-pa3T2yB3IzuRPKTJbR4Z04oK3AG6pQObl3Wiw-g/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" title="Tabla de pacientes"><svg class="ic"><use href="#i-contact"/></svg><span class="lbl">Tabla de<br><span class="sub">pacientes</span></span></a>
-          <a class="t w2 txt" href="https://docs.google.com/spreadsheets/d/1r6e5ONlUgOOWc3Zr6sDL3yS_I3qRm9_P5wIidaEOdOE/edit?gid=738477232#gid=738477232" target="_blank" rel="noopener noreferrer" title="Base de datos"><svg class="ic"><use href="#i-papers"/></svg><span class="lbl">Base de<br><span class="sub">datos</span></span></a>
-          <a class="t txt2" href="https://drive.google.com/drive/folders/1e5xKBx3ODE7Nt29FgyZXELm6Xb_UpZlE?usp=drive_link" target="_blank" rel="noopener noreferrer" title="REM"><span class="lbl">REM</span></a>
-          <a class="t solo" href="https://docs.google.com/forms/d/e/1FAIpQLSfomBx2HRljbWza6oRnQbLQUhtgF56_UJXJlFYBSIwDSuMN3Q/viewform" target="_blank" rel="noopener noreferrer" title="Agregar / REM"><svg class="ic"><use href="#i-pluscirc"/></svg><span class="cap">Agregar REM</span></a>
-
-          <a class="t w2 txt" href="https://docs.google.com/document/d/125gjY2PJxRT5nK5Ujt9V9_6FAUSVDOq7JG1Kbe8mNrE/edit?usp=drive_web&ouid=100636061771132254336" target="_blank" rel="noopener noreferrer" title="Acta reuniones"><svg class="ic"><use href="#i-book"/></svg><span class="lbl">Acta<br>reuniones</span></a>
-          <a class="t w2 txt" href="https://drive.google.com/drive/folders/1mn-FFcPTzDQM6YDibGQbRrXks2q0Mptk" target="_blank" rel="noopener noreferrer" title="PPTs residentes psiquiatría"><svg class="ic"><use href="#i-slides"/></svg><span class="lbl">PPTs<br><span class="sub">residentes<br>psiq.</span></span></a>
-          <a class="t w2 txt" href="https://drive.google.com/drive/u/0/folders/1853rukI4SMmydk-Cg77Kz77SlzJnGlUd" target="_blank" rel="noopener noreferrer" title="Temas psiquiatría"><svg class="ic"><use href="#i-library"/></svg><span class="lbl">Temas<br><span class="sub">psiquiatría</span></span></a>
-        </div>
+    <!-- ================= ENLACE ================= -->
+    <section class="card" aria-labelledby="h-enl">
+      <div class="sh"><span class="bdg"><svg><use href="#s-hosp"/></svg></span><h2 id="h-enl">Accesos Enlace</h2><span class="org">HBLT</span><span class="n"></span></div>
+      <div class="grid g6">
+        <a class="t w2" href="https://docs.google.com/spreadsheets/d/1YN2-pa3T2yB3IzuRPKTJbR4Z04oK3AG6pQObl3Wiw-g/edit?gid=0#gid=0" title="Tabla de pacientes" data-k="pacientes listado enlace"><svg class="ic"><use href="#i-contact"/></svg><span class="lbl">Tabla de<small>pacientes</small></span></a>
+        <a class="t w2" href="https://docs.google.com/spreadsheets/d/1r6e5ONlUgOOWc3Zr6sDL3yS_I3qRm9_P5wIidaEOdOE/edit?gid=738477232#gid=738477232" title="Base de datos" data-k="registro datos"><svg class="ic"><use href="#i-papers"/></svg><span class="lbl">Base de<small>datos</small></span></a>
+        <a class="t s" href="https://drive.google.com/drive/folders/1e5xKBx3ODE7Nt29FgyZXELm6Xb_UpZlE?usp=drive_link" title="REM (carpeta)" data-k="rem estadistica"><span class="big">REM</span><span class="cap">Carpeta</span></a>
+        <a class="t s" href="https://docs.google.com/forms/d/e/1FAIpQLSfomBx2HRljbWza6oRnQbLQUhtgF56_UJXJlFYBSIwDSuMN3Q/viewform" title="Agregar registro REM (formulario)" data-k="agregar nuevo rem formulario ingresar"><svg class="ic"><use href="#i-pluscirc"/></svg><span class="cap">Agregar REM</span></a>
+        <a class="t w2" href="https://docs.google.com/document/d/125gjY2PJxRT5nK5Ujt9V9_6FAUSVDOq7JG1Kbe8mNrE/edit?usp=drive_web&ouid=100636061771132254336" title="Acta de reuniones" data-k="acta reunion"><svg class="ic"><use href="#i-book"/></svg><span class="lbl">Acta<small>reuniones</small></span></a>
+        <a class="t w2" href="https://drive.google.com/drive/folders/1mn-FFcPTzDQM6YDibGQbRrXks2q0Mptk" title="PPTs residentes de psiquiatría" data-k="presentaciones ppt residentes psiquiatria clases"><svg class="ic"><use href="#i-slides"/></svg><span class="lbl">PPTs<small>residentes psiq.</small></span></a>
+        <a class="t w2" href="https://drive.google.com/drive/u/0/folders/1853rukI4SMmydk-Cg77Kz77SlzJnGlUd" title="Temas de psiquiatría" data-k="temas psiquiatria estudio"><svg class="ic"><use href="#i-library"/></svg><span class="lbl">Temas<small>psiquiatría</small></span></a>
       </div>
     </section>
 
-    <section aria-label="Accesos CEIF, COSAM CEIF Puente Alto">
-      <div class="sec-head"><h2>Accesos CEIF</h2><small>COSAM CEIF Puente Alto</small></div>
-      <div class="sec-body">
-        <div class="grid g6">
-          <a class="t w2 txt" href="https://clinico.rayenaps.cl/#/actualizar-app" target="_blank" rel="noopener noreferrer" title="Rayen APS"><svg class="ic"><use href="#i-rayen"/></svg><span class="lbl">Rayen<br><span class="sub">APS</span></span></a>
-          <a class="t w2 txt" href="https://drive.google.com/drive/folders/1DDZ4hBKfaiLzfcceaqOrzVUwdDuERBrd" target="_blank" rel="noopener noreferrer" title="Pacientes"><svg class="ic"><use href="#i-folder"/></svg><span class="lbl">Pacientes</span></a>
-          <a class="t txt" href="https://cmesapa-my.sharepoint.com/personal/marco_donoso_cmpuentealto_cl/_layouts/15/onedrive.aspx?csf=1&web=1&e=qzdqSf&CID=80d495ed%2D8f02%2D427d%2Da09d%2D93fd152ed6a1&id=%2Fpersonal%2Fmarco%5Fdonoso%5Fcmpuentealto%5Fcl%2FDocuments%2FPCI%20%28PLANES%20DE%20CUIDADO%20INTEGRAL%29&FolderCTID=0x0120001C19A6E1B19A7945BD39D8E611AF6657&view=0" target="_blank" rel="noopener noreferrer" title="PCI (Planes de Cuidado Integral)"><span class="lbl">PCI</span></a>
-          <a class="t solo" href="https://docs.google.com/document/d/1nRKoktTFIDMmOtkj_OADxF5eQlgLwKfm1pDz9NpV3t4/edit?tab=t.0" target="_blank" rel="noopener noreferrer" title="Registro CEIF"><svg class="ic"><use href="#i-pills"/></svg><span class="cap">Registro</span></a>
-
-          <a class="t w2 txt" href="https://docs.google.com/document/d/1Br_Vi4j6kiTLUf7fJsLGa2PQfGbJOFP1ZmM48fdYkYk/edit?tab=t.0" target="_blank" rel="noopener noreferrer" title="Formato ingreso"><svg class="ic"><use href="#i-chat"/></svg><span class="lbl">Formato<br><span class="sub">ingreso</span></span></a>
-          <a class="t vert" href="https://drive.google.com/drive/folders/1Me5bz1-nZPiQ_iw2JGnQzrMK5ihazujA" target="_blank" rel="noopener noreferrer" title="Formatos"><svg class="ic"><use href="#i-pagedoc"/></svg><span class="lbl">Formatos</span></a>
-          <a class="t txt2" href="https://docs.google.com/spreadsheets/d/1neVn74TlvdzN77jXS6uCIJWTvL6gzltwVEscelKqWmE/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" title="IPD"><span class="lbl">IPD</span></a>
-          <a class="t txt2" href="https://docs.google.com/spreadsheets/d/1DjsVWzrroGIN0yWRCikVRKv6JK2daPWz/edit?gid=1511189274#gid=1511189274" target="_blank" rel="noopener noreferrer" title="Bio NET"><span class="lbl">Bio<br>NET</span></a>
-          <a class="t txt2 c-ring2" href="https://www.licencia.cl/sesiones/nueva" target="_blank" rel="noopener noreferrer" title="LM Imed"><span class="lbl">LM<br><span class="sub">Imed</span></span></a>
-        </div>
+    <!-- ================= CEIF ================= -->
+    <section class="card" aria-labelledby="h-ceif">
+      <div class="sh"><span class="bdg"><svg><use href="#s-people"/></svg></span><h2 id="h-ceif">Accesos CEIF</h2><span class="org">COSAM CEIF Puente Alto</span><span class="n"></span></div>
+      <div class="grid g6">
+        <a class="t w2" href="https://clinico.rayenaps.cl/#/actualizar-app" title="Rayen APS (ficha clínica)" data-k="rayen ficha clinica aps"><svg class="ic"><use href="#i-rayen"/></svg><span class="lbl">Rayen<small>APS</small></span></a>
+        <a class="t w2" href="https://drive.google.com/drive/folders/1DDZ4hBKfaiLzfcceaqOrzVUwdDuERBrd" title="Pacientes CEIF (carpeta)" data-k="pacientes carpeta ceif"><svg class="ic"><use href="#i-folder"/></svg><span class="lbl">Pacientes</span></a>
+        <a class="t s" href="https://cmesapa-my.sharepoint.com/personal/marco_donoso_cmpuentealto_cl/_layouts/15/onedrive.aspx?csf=1&web=1&e=qzdqSf&CID=80d495ed%2D8f02%2D427d%2Da09d%2D93fd152ed6a1&id=%2Fpersonal%2Fmarco%5Fdonoso%5Fcmpuentealto%5Fcl%2FDocuments%2FPCI%20%28PLANES%20DE%20CUIDADO%20INTEGRAL%29&FolderCTID=0x0120001C19A6E1B19A7945BD39D8E611AF6657&view=0" title="PCI · Planes de Cuidado Integral" data-k="pci plan cuidado integral onedrive"><span class="big">PCI</span><span class="cap">Planes</span></a>
+        <a class="t s" href="https://docs.google.com/document/d/1nRKoktTFIDMmOtkj_OADxF5eQlgLwKfm1pDz9NpV3t4/edit?tab=t.0" title="Recetas de controlados" data-k="recetas controlados psicotropicos estupefacientes farmacos medicamentos receta"><svg class="ic"><use href="#i-pills"/></svg><span class="cap two">Recetas de controlados</span></a>
+        <a class="t w2" href="https://docs.google.com/document/d/1Br_Vi4j6kiTLUf7fJsLGa2PQfGbJOFP1ZmM48fdYkYk/edit?tab=t.0" title="Formato de ingreso" data-k="formato ingreso plantilla"><svg class="ic"><use href="#i-chat"/></svg><span class="lbl">Formato<small>ingreso</small></span></a>
+        <a class="t s" href="https://drive.google.com/drive/folders/1Me5bz1-nZPiQ_iw2JGnQzrMK5ihazujA" title="Formatos (carpeta)" data-k="formatos plantillas"><svg class="ic"><use href="#i-pagedoc"/></svg><span class="cap">Formatos</span></a>
+        <a class="t s" href="https://docs.google.com/spreadsheets/d/1neVn74TlvdzN77jXS6uCIJWTvL6gzltwVEscelKqWmE/edit?gid=0#gid=0" title="IPD" data-k="ipd ges informe proceso diagnostico"><span class="big">IPD</span><span class="cap">Planilla</span></a>
+        <a class="t s" href="https://docs.google.com/spreadsheets/d/1DjsVWzrroGIN0yWRCikVRKv6JK2daPWz/edit?gid=1511189274#gid=1511189274" title="Bio NET" data-k="bionet bio net"><span class="big">Bio NET</span><span class="cap">Planilla</span></a>
+        <a class="t s c-hl" href="https://www.licencia.cl/sesiones/nueva" title="Licencia médica Imed" data-k="lm licencia medica imed"><span class="big">LM</span><span class="cap">Imed</span></a>
       </div>
     </section>
   </div>
 
-  <!-- ============ Vida Nova ============ -->
-  <section class="nova" aria-label="Vida Nova">
-    <div class="sec-head"><h2>Vida Nova</h2></div>
-    <div class="sec-body">
-      <div class="grid g13">
-        <a class="t w2 txt" href="https://app.salutem.cl/login" target="_blank" rel="noopener noreferrer" title="Salutem"><svg class="ic"><use href="#i-pluso"/></svg><span class="lbl">Salutem</span></a>
-        <a class="t w2 txt" href="https://drive.google.com/drive/u/0/folders/1h68ZK-syJNVdx99RGz8EJPPcKq-zDMc_" target="_blank" rel="noopener noreferrer" title="Activos"><svg class="ic"><use href="#i-search-folder"/></svg><span class="lbl">Activos</span></a>
-        <a class="t w2 txt" href="https://docs.google.com/document/d/1cWVCr0z8g0QNjW6uOmvT1OZwl3QygJujLiRhyOkCRDk/edit?tab=t.0" target="_blank" rel="noopener noreferrer" title="Hacer preingreso"><svg class="ic"><use href="#i-share"/></svg><span class="lbl">Hacer<br><span class="sub">preingreso</span></span></a>
-        <a class="t solo" href="https://drive.google.com/drive/u/0/folders/1Ivw9igDxtn8HqFxjZkecdWKnQBn5mC90" target="_blank" rel="noopener noreferrer" title="Carpeta Vida Nova"><svg class="ic"><use href="#i-folder"/></svg><span class="cap">Carpeta</span></a>
-        <a class="t solo" href="https://docs.google.com/document/d/1Q3c6-CQqlRwd7n1KVSm6dSHkVLswHWuj/edit" target="_blank" rel="noopener noreferrer" title="Inyección / registro"><svg class="ic"><use href="#i-syringe"/></svg><span class="cap">Inyección</span></a>
-        <a class="t w2 txt" href="https://docs.google.com/document/d/136TqMvMc-RqNqzs3I5z6CxVSG552AwFa/edit" target="_blank" rel="noopener noreferrer" title="Documento" style="gap:.5cqw"><svg class="ic"><use href="#i-docfill"/></svg><span class="lbl">Documento</span></a>
-        <a class="t w2 txt" href="https://prescripcion-receta.minsal.cl/auth/login" target="_blank" rel="noopener noreferrer" title="Receta MINSAL"><svg class="ic"><use href="#i-pills"/></svg><span class="lbl">Receta<br>MINSAL</span></a>
-        <a class="t txt" href="https://wlme.medipass.cl/WebPublic/" target="_blank" rel="noopener noreferrer" title="LM (Medipass)"><span class="lbl">LM</span></a>
-      </div>
+  <!-- ================= VIDA NOVA ================= -->
+  <section class="card" aria-labelledby="h-nova">
+    <div class="sh"><span class="bdg"><svg><use href="#s-heart"/></svg></span><h2 id="h-nova">Vida Nova</h2><span class="n"></span></div>
+    <div class="grid g13">
+      <a class="t w2" href="https://app.salutem.cl/login" title="Salutem" data-k="salutem ficha"><svg class="ic"><use href="#i-pluso"/></svg><span class="lbl">Salutem</span></a>
+      <a class="t w2" href="https://drive.google.com/drive/u/0/folders/1h68ZK-syJNVdx99RGz8EJPPcKq-zDMc_" title="Pacientes activos (carpeta)" data-k="activos pacientes carpeta"><svg class="ic"><use href="#i-search-folder"/></svg><span class="lbl">Activos</span></a>
+      <a class="t w2" href="https://docs.google.com/document/d/1cWVCr0z8g0QNjW6uOmvT1OZwl3QygJujLiRhyOkCRDk/edit?tab=t.0" title="Hacer preingreso" data-k="preingreso ingreso nuevo"><svg class="ic"><use href="#i-share"/></svg><span class="lbl">Hacer<small>preingreso</small></span></a>
+      <a class="t s" href="https://drive.google.com/drive/u/0/folders/1Ivw9igDxtn8HqFxjZkecdWKnQBn5mC90" title="Carpeta Vida Nova" data-k="carpeta vida nova"><svg class="ic"><use href="#i-folder"/></svg><span class="cap">Carpeta</span></a>
+      <a class="t s" href="https://docs.google.com/document/d/1Q3c6-CQqlRwd7n1KVSm6dSHkVLswHWuj/edit" title="Orden de exámenes" data-k="orden examenes laboratorio solicitud analisis"><svg class="ic"><use href="#i-lab"/></svg><span class="cap two">Orden de exámenes</span></a>
+      <a class="t w2" href="https://docs.google.com/document/d/136TqMvMc-RqNqzs3I5z6CxVSG552AwFa/edit" title="Documento Vida Nova" data-k="documento"><svg class="ic"><use href="#i-docfill"/></svg><span class="lbl">Documento</span></a>
+      <a class="t w2" href="https://prescripcion-receta.minsal.cl/auth/login" title="Receta electrónica MINSAL" data-k="receta prescripcion minsal medicamentos"><svg class="ic"><use href="#i-pills"/></svg><span class="lbl">Receta<small>MINSAL</small></span></a>
+      <a class="t s" href="https://wlme.medipass.cl/WebPublic/" title="Licencia médica Medipass" data-k="lm licencia medica medipass"><span class="big">LM</span><span class="cap">Medipass</span></a>
     </div>
   </section>
+
+  <div id="empty" role="status">No hay accesos que coincidan con tu búsqueda.</div>
+  </div>
+
+  <footer class="foot">
+    <div class="legend" aria-label="Tipo de archivo que abre cada botón">
+      <span><i style="background:var(--c-folder)"></i>Carpeta</span>
+      <span><i style="background:var(--c-sheet)"></i>Planilla</span>
+      <span><i style="background:var(--c-doc)"></i>Documento</span>
+      <span><i style="background:var(--c-form)"></i>Formulario</span>
+      <span><i style="background:var(--c-web)"></i>Plataforma web</span>
+    </div>
+    <div class="tips">Atajo: <b>/</b> buscar · <b>Enter</b> abrir el primero · <b>Esc</b> limpiar &nbsp;·&nbsp; Algunos accesos requieren iniciar sesión.</div>
+  </footer>
+</div>
 </main>
 
-<p class="footer-note">Los accesos pueden requerir iniciar sesión en sus respectivas plataformas.</p>
-
 <script>
-// Si un ícono de servicio externo no carga (sin internet o bloqueado), se muestra su nombre en texto.
-document.querySelectorAll('img.fav').forEach(function(img){
-  img.addEventListener('error',function(){
-    var s=document.createElement('span');
-    s.className='lbl';s.textContent=img.dataset.fb;
-    s.style.fontSize='.62em';img.closest('a').classList.add('nofav');
-    if(img.closest('.c-black')) s.style.color='#fff';
-    img.replaceWith(s);
+(function(){
+  var tiles=[].slice.call(document.querySelectorAll('a.t'));
+  // Todos los enlaces abren en pestaña nueva
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){a.target='_blank';a.rel='noopener noreferrer';});
+
+  // Tipo de archivo (punto de color) en las secciones de trabajo
+  function typeOf(u){
+    if(/docs\.google\.com\/spreadsheets/.test(u))return'sheet';
+    if(/docs\.google\.com\/document/.test(u))return'doc';
+    if(/docs\.google\.com\/forms/.test(u))return'form';
+    if(/drive\.google\.com\/drive\/(u\/\d\/)?folders|sharepoint\.com/.test(u))return'folder';
+    return'web';
+  }
+  var names={sheet:'Planilla',doc:'Documento',form:'Formulario',folder:'Carpeta',web:'Plataforma web'};
+  tiles.forEach(function(t){
+    var inGeneral=t.closest('section').querySelector('#h-gen');
+    var ty=typeOf(t.href);
+    if(!inGeneral)t.dataset.type=ty;
+    t.setAttribute('aria-label',t.title+(inGeneral?'':' · '+names[ty])+' (se abre en pestaña nueva)');
   });
-});
+
+  // Contador por sección
+  document.querySelectorAll('section.card').forEach(function(s){
+    var n=s.querySelectorAll('a.t').length;s.querySelector('.n').textContent=n+' accesos';
+  });
+
+  // Íconos de servicios externos: si no cargan, se muestra una inicial
+  document.querySelectorAll('img.fav').forEach(function(img){
+    img.addEventListener('error',function(){
+      var s=document.createElement('span');s.className='fb';s.textContent=img.dataset.fb;s.setAttribute('aria-hidden','true');img.replaceWith(s);
+    });
+  });
+
+  // Saludo y fecha
+  var d=new Date(),h=d.getHours();
+  document.getElementById('greet').textContent=h<12?'Buenos días':h<20?'Buenas tardes':'Buenas noches';
+  try{var f=d.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+    document.getElementById('today').textContent=f.charAt(0).toUpperCase()+f.slice(1)+' · ¿Qué deseas abrir?';}catch(e){}
+
+  // Buscador
+  var q=document.getElementById('q'),root=document.getElementById('portal'),clear=document.getElementById('clear'),empty=document.getElementById('empty');
+  function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  tiles.forEach(function(t){
+    var sec=t.closest('section').querySelector('h2').textContent;
+    t._k=norm([t.title,t.textContent,t.dataset.k,sec,names[t.dataset.type]||''].join(' '));
+  });
+  var first=null;
+  function run(){
+    var v=norm(q.value.trim()),words=v.split(/\s+/).filter(Boolean);
+    root.classList.toggle('searching',words.length>0);
+    first=null;var count=0;
+    tiles.forEach(function(t){
+      var ok=words.every(function(w){return t._k.indexOf(w)>-1;});
+      t.classList.toggle('on',ok&&words.length>0);t.classList.toggle('off',!ok);t.classList.remove('first');
+      if(ok&&words.length){count++;if(!first)first=t;}
+    });
+    if(first)first.classList.add('first');
+    document.querySelectorAll('section.card').forEach(function(s){
+      s.classList.toggle('hide',words.length>0&&!s.querySelector('a.t.on'));
+    });
+    var duo=document.querySelector('.duo');duo.classList.toggle('hide',words.length>0&&!duo.querySelector('a.t.on'));
+    empty.classList.toggle('show',words.length>0&&count===0);
+    clear.textContent=words.length?(count?count+(count===1?' resultado':' resultados')+'  ✕':'Sin resultados  ✕'):'Limpiar ✕';
+  }
+  q.addEventListener('input',run);
+  q.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&first){e.preventDefault();window.open(first.href,'_blank','noopener');}
+    if(e.key==='Escape'){q.value='';run();q.blur();}
+    if(e.key==='ArrowDown'&&first){e.preventDefault();first.focus();}
+  });
+  clear.addEventListener('click',function(){q.value='';run();q.focus();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
+    else if(e.key==='Escape'&&root.classList.contains('searching')){q.value='';run();}
+  });
+})();
 </script>
 </body>
 </html>
